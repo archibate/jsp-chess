@@ -2,35 +2,20 @@
 <%@ include file="db.jsp"%>
 <%
 String data = request.getParameter("data");
-int srcX = data.charAt(1) - '0';
-int srcY = data.charAt(2) - '0';
-int dstX = data.charAt(3) - '0';
-int dstY = data.charAt(4) - '0';
 int roomId = (int)session.getAttribute("roomId");
 String myColor = (String)session.getAttribute("myColor");
 
 PreparedStatement stmt = conn.prepareStatement(
-"update room set r_color = ? where r_no = ? and r_color = ?"
+"update room set r_color = ?, r_state = ? where r_no = ? and r_color = ?"
 );
 stmt.setString(1, myColor.equals("red") ? "black" : "red");
-stmt.setInt(2, roomId);
-stmt.setString(3, myColor);
+stmt.setString(2, data);
+stmt.setInt(3, roomId);
+stmt.setString(4, myColor);
 stmt.executeUpdate();
 if (stmt.getUpdateCount() != 1) {
-    out.println("NOT_YOUR_TURN");
+    out.print("NOT_YOUR_TURN");
 } else {
-    stmt = conn.prepareStatement(
-    "insert into motion (m_room, m_color, m_srcXY, m_dstXY) values (?, ?, ?, ?)"
-    );
-    stmt.setInt(1, roomId);
-    stmt.setString(2, myColor);
-    stmt.setInt(3, srcX * 10 + srcY);
-    stmt.setInt(4, dstX * 10 + dstY);
-    stmt.executeUpdate();
-    if (stmt.getUpdateCount() == 1) {
-        out.println("OK");
-    } else {
-        out.println("ERROR");
-    }
+    out.print("OK");
 }
 %>

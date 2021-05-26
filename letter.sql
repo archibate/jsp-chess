@@ -16,22 +16,12 @@ create table room
     ( r_no int not null auto_increment
     , r_red int not null
     , r_black int not null
-    , r_color enum('red', 'black') not null
+    , r_color enum('red', 'black') not null default 'red'
+    , r_state char(64) not null default '0010203040506070800312234363728309192939495969798906172646667786'
     , primary key (r_no)
     , foreign key (r_red) references user(u_no)
       on delete cascade on update cascade
     , foreign key (r_black) references user(u_no)
-      on delete cascade on update cascade
-);
-
-create table motion
-    ( m_seq int not null auto_increment
-    , m_color enum('red', 'black') not null
-    , m_srcXY tinyint not null
-    , m_dstXY tinyint not null
-    , m_room int not null
-    , primary key (m_seq, m_room)
-    , foreign key (m_room) references room(r_no)
       on delete cascade on update cascade
 );
 
@@ -44,7 +34,5 @@ insert into user values (null, "马舒婷", "女", 36, "shu");
 insert into user values (null, "马云", "男", 996, "yun");
 select * from user;
 
-insert into room values (null, 1, 3, 'red');
+insert into room values (null, 1, 3, default, default);
 select * from room;
-
-select * from motion;

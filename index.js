@@ -1,13 +1,14 @@
 /**
  * Created by Administrator on 2021/4/19.
+ *
+ * vim: et ts=2 sts=2 sw=2
  */
 
 const S = 36;
 
 class Chess
 {
-  constructor(color, name, x, y)
-  {
+  constructor(color, name, x, y) {
     this.x = x;
     this.y = y;
     this.name = name;
@@ -15,8 +16,7 @@ class Chess
     this.map = null;
   }
 
-  paint(ctx)
-  {
+  paint(ctx) {
     ctx.fillStyle = '#fc6';
     ctx.fillRect(this.x * S, this.y * S, S, S);
     ctx.fillStyle = this.color;
@@ -102,6 +102,24 @@ class Map
     for (var i in this.chesses) {
       var c = this.chesses[i];
       this.lut[c.x * 10 + c.y] = i;
+    }
+  }
+
+  serialize() {
+    var data = '';
+    for (var i in this.chesses) {
+      var c = this.chesses[i];
+      var xy = c.x + '' + c.y;
+      data += xy;
+    }
+    return data;
+  }
+
+  deserialize(data) {
+    for (var i in this.chesses) {
+      var c = this.chesses[i];
+      c.x = parseInt(data[i * 2 + 0]);
+      c.y = parseInt(data[i * 2 + 1]);
     }
   }
 
@@ -357,10 +375,14 @@ class Canvas {
     this.canvas.height = 10 * S;
     this.ctx = this.canvas.getContext('2d');
     this.canvas.onmousedown = this.onMouseDown.bind(this);
-    this.player = 'red';
-    //this.ws = new WebSocket('ws://127.0.0.1:9125/');
-    //this.ws.onmessage = this.onReceive.bind(this);
-    this.doReceive();
+    this.player = null;
+    this.pendingSend = false;
+    $.post('myColor.jsp', {
+    }, function(res) {
+        console.log('MYCOLOR', res);
+        this.player = '' + res;
+        this.doExchange();
+    }.bind(this));
   }
 
   invalidate() {
@@ -368,43 +390,17 @@ class Canvas {
     this.map.paint(this.ctx);
   }
 
-  doReceive() {
-    $.post('recv.jsp', {
-    }, function(res) {
-        if (res == 'NONE')
-            return;
-        this.onReceive(res);
-    }.bind(this));
-    setTimeout(this.doReceive.bind(this), 4000);
-  }
-
-  onReceive(data) {
-    console.log('RECV', data);
-    if (data[0] == 'M') {
-      var px = parseInt(data[1]);
-      var py = parseInt(data[2]);
-      var mx = parseInt(data[3]);
-      var my = parseInt(data[4]);
-      var c = this.map.at(px, py);
-      if (c == null) {
-        alert('对方疑似作弊，找不到棋子: ' + data);
-        return;
-      }
-      if (!c.tryMoveTo(mx, my)) {
-        alert('对方疑似作弊，无法移动: ' + data);
-        return;
-      }
-      this.invalidate();
-    }
-  }
-
-  sendCommand(data, callback) {
+  doExchange() {
+    var data = this.pendingSend ? this.map.serialize(data) : '';
     console.log('SEND', data);
-    $.post('send.jsp', {
+    $.post('xchg.jsp', {
       data: data,
     }, function(res) {
-      callback();
-    });
+      console.log('RECV', data);
+      this.map.deserialize(data);
+      this.invalidate();
+      setTimeout(this.doExchange.bind(this), 1000);
+    }.bind(this));
   }
 
   onMouseDown(e) {
@@ -415,10 +411,8 @@ class Canvas {
     if (this.map.selection) {
       var [px, py] = [this.map.selection.x, this.map.selection.y];
       if (this.map.selection.tryMoveTo(mx, my)) {
-        this.sendCommand('M' + px + py + mx + my, function() {
-          this.map.selection = null;
-          this.invalidate();
-        }.bind(this));
+        var state = this.map.serialize();
+        this.pendingSend = true;
         return;
       }
     }
@@ -433,4 +427,5 @@ class Canvas {
 var canvas = new Canvas();
 canvas.map = new Map();
 canvas.map.initialize();
+console.log('INIT', canvas.map.serialize());
 canvas.invalidate();

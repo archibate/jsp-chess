@@ -4,15 +4,5 @@
 int roomId = (int)session.getAttribute("roomId");
 String myColor = (String)session.getAttribute("myColor");
 
-PreparedStatement stmt = conn.prepareStatement(
-"select r_state from room where r_no = ?"
-);
-stmt.setInt(1, roomId);
-ResultSet rs = stmt.executeQuery();
-if (rs.next()) {
-    String data = rs.getString(1);
-    out.print(data);
-} else {
-    out.print("ROOM_NOT_FOUND");
-}
+out.print(myColor);
 %>
