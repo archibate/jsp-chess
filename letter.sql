@@ -33,6 +33,17 @@ create table chess
       on delete cascade on update cascade
 );
 
+delimiter $$
+create procedure moveChess
+    ( in srcXY tinyint
+    , in dstXY tinyint
+    , in roomId int
+) begin
+    delete from chess where c_xy = dstXY and c_room = roomId;
+    update chess set c_xy = dstXY where c_xy = srcXY and c_room = roomId;
+end$$
+delimiter ;
+
 insert into user values (null, "刘孙伟", "男", 19, "liu");
 insert into user values (null, "朱丽娟", "女", 95, "zhu");
 insert into user values (null, "彭于斌", "女", 19, "pen");

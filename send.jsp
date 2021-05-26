@@ -8,10 +8,9 @@ int dstX = data.charAt(3) - '0';
 int dstY = data.charAt(4) - '0';
 int roomId = 1;
 
-var stmt = conn.prepareStatement(
-    "update chess set c_xy = ? where c_xy = ? and c_room = ?");
-stmt.setInt(0, dstX * 10 + dstY);
+PreparedStatement stmt = conn.prepareStatement("call moveChess(?, ?, ?)");
 stmt.setInt(1, srcX * 10 + srcY);
-stmt.setInt(2, roomId);
+stmt.setInt(2, dstX * 10 + dstY);
+stmt.setInt(3, roomId);
 stmt.executeUpdate();
 %>
