@@ -23,26 +23,16 @@ create table room
       on delete cascade on update cascade
 );
 
-create table chess
-    ( c_xy tinyint not null
-    , c_color enum('red', 'black') not null
-    , c_type enum('Che', 'Ma', 'Xiang', 'Shi', 'Jiang', 'Zu', 'Pao') not null
-    , c_room int not null
-    , primary key (c_room, c_xy)
-    , foreign key (c_room) references room(r_no)
+create table motion
+    ( m_seq int not null auto_increment
+    , m_color enum('red', 'black') not null
+    , m_srcXY tinyint not null
+    , m_dstXY tinyint not null
+    , m_room int not null
+    , primary key (m_seq, m_room)
+    , foreign key (m_room) references room(r_no)
       on delete cascade on update cascade
 );
-
-delimiter $$
-create procedure moveChess
-    ( in srcXY tinyint
-    , in dstXY tinyint
-    , in roomId int
-) begin
-    delete from chess where c_xy = dstXY and c_room = roomId;
-    update chess set c_xy = dstXY where c_xy = srcXY and c_room = roomId;
-end$$
-delimiter ;
 
 insert into user values (null, "刘孙伟", "男", 19, "liu");
 insert into user values (null, "朱丽娟", "女", 95, "zhu");
@@ -56,4 +46,4 @@ select * from user;
 insert into room values (null, 1, 3);
 select * from room;
 
-insert into chess values (89, 'red', 'Che', 1);
+select * from motion;

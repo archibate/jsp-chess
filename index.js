@@ -296,10 +296,10 @@ class ChessJiang extends Chess {
   }
   movePointFilter(px, py) {
     if (this.color == 'black') {
-      if (3 <= px && px < 5 && 0 <= py && py <= 2)
+      if (3 <= px && px <= 5 && 0 <= py && py <= 2)
         return true;
     } else {
-      if (3 <= px && px < 5 && 7 <= py && py <= 9)
+      if (3 <= px && px <= 5 && 7 <= py && py <= 9)
         return true;
     }
     return false;
