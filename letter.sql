@@ -1,9 +1,9 @@
 -- vim: ft=mysql
 
-create or replace database letterdb;
+create database letterdb;
 use letterdb;
 
-create or replace table user
+create table user
     ( u_no int not null auto_increment
     , u_name varchar(64) not null
     , u_sex char(8) not null
@@ -13,7 +13,7 @@ create or replace table user
     , check (u_sex in ('男', '女'))
 );
 
-create or replace table room
+create table room
     ( r_no int not null auto_increment
     , r_red int not null
     , r_black int not null
