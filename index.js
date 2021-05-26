@@ -360,11 +360,22 @@ class Canvas {
     this.player = 'red';
     //this.ws = new WebSocket('ws://127.0.0.1:9125/');
     //this.ws.onmessage = this.onReceive.bind(this);
+    this.doReceive();
   }
 
   invalidate() {
     this.map.buildLUT();
     this.map.paint(this.ctx);
+  }
+
+  doReceive() {
+    $.post('recv.jsp', {
+    }, function(res) {
+        if (res == 'NONE')
+            return;
+        this.onReceive(res);
+    }.bind(this));
+    setTimeout(this.doReceive.bind(this), 4000);
   }
 
   onReceive(data) {
@@ -391,8 +402,7 @@ class Canvas {
     console.log('SEND', data);
     $.post('send.jsp', {
       data: data,
-    }, function(res, err) {
-      console.log(res, err);
+    }, function(res) {
       callback();
     });
   }

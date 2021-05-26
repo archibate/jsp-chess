@@ -6,8 +6,8 @@ int srcX = data.charAt(1) - '0';
 int srcY = data.charAt(2) - '0';
 int dstX = data.charAt(3) - '0';
 int dstY = data.charAt(4) - '0';
-int roomId = 1;
-String myColor = "red";
+int roomId = (int)session.getAttribute("roomId");
+String myColor = (String)session.getAttribute("myColor");
 
 PreparedStatement stmt = conn.prepareStatement(
 "insert into motion (m_room, m_color, m_srcXY, m_dstXY) values (?, ?, ?, ?)"
