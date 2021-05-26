@@ -16,6 +16,7 @@ create table room
     ( r_no int not null auto_increment
     , r_red int not null
     , r_black int not null
+    , r_color enum('red', 'black') not null
     , primary key (r_no)
     , foreign key (r_red) references user(u_no)
       on delete cascade on update cascade
@@ -43,7 +44,7 @@ insert into user values (null, "马舒婷", "女", 36, "shu");
 insert into user values (null, "马云", "男", 996, "yun");
 select * from user;
 
-insert into room values (null, 1, 3);
+insert into room values (null, 1, 3, 'red');
 select * from room;
 
 select * from motion;
