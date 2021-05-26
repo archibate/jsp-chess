@@ -6,11 +6,10 @@ use letterdb;
 create table user
     ( u_no int not null auto_increment
     , u_name varchar(64) not null
-    , u_sex char(8) not null
+    , u_sex enum('男', '女') not null
     , u_age int not null
     , u_passwd varchar(64) not null
     , primary key (u_no)
-    , check (u_sex in ('男', '女'))
 );
 
 create table room
@@ -21,6 +20,16 @@ create table room
     , foreign key (r_red) references user(u_no)
       on delete cascade on update cascade
     , foreign key (r_black) references user(u_no)
+      on delete cascade on update cascade
+);
+
+create table chess
+    ( c_xy tinyint not null
+    , c_color enum('red', 'black') not null
+    , c_type enum('Che', 'Ma', 'Xiang', 'Shi', 'Jiang', 'Zu', 'Pao') not null
+    , c_room int not null
+    , primary key (c_room, c_xy)
+    , foreign key (c_room) references room(r_no)
       on delete cascade on update cascade
 );
 
@@ -35,3 +44,5 @@ select * from user;
 
 insert into room values (null, 1, 3);
 select * from room;
+
+insert into chess values (89, 'red', 'Che', 1);
