@@ -408,7 +408,7 @@ class Canvas {
         this.sendCommand('M' + px + py + mx + my, function() {
           this.map.selection = null;
           this.invalidate();
-        });
+        }.bind(this));
         return;
       }
     }
