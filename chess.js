@@ -418,8 +418,10 @@ class Canvas {
     this.oldData = null;
     $.post('myColor.jsp', {
     }, function(res) {
-        console.log('MYCOLOR', res);
-        this.map.player = '' + res;
+        var [roomId, myColor] = res.split(':');
+        console.log('MYCOLOR', myColor, roomId);
+        this.map.player = myColor;
+        $('#roomId').html(roomId);
         this.doExchange();
     }.bind(this));
   }
