@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker run -p 8080:8080 -v "`pwd`":/usr/local/tomcat/webapps/ROOT -e MYSQL_ADDR=`python -c 'import socket; print(socket.gethostbyname(socket.gethostname()))'` tomcat
