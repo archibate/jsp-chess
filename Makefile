@@ -1,6 +1,6 @@
-0:
+reset:
 	-echo drop database letterdb | ./sql.sh
 	./sql.sh < letter.sql
 
-x:
+shell:
 	./sql.sh letterdb
