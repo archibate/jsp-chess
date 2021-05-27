@@ -4,6 +4,8 @@
  * vim: et ts=2 sts=2 sw=2
  */
 
+$(function() {
+
 const S = 36;
 
 class Chess
@@ -478,3 +480,5 @@ canvas.map = new Map();
 canvas.map.initialize();
 console.log('INIT', canvas.map.serialize());
 canvas.invalidate();
+
+});

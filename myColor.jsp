@@ -14,6 +14,7 @@ if (rs.next()) {
     String color = rs.getString(2);
     if (owner != uid)
         color = color.equals("red") ? "black" : "red";
+    session.setAttribute("myColor", color);
     out.print(color);
 } else {
     out.print("ERROR");

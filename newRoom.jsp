@@ -10,11 +10,7 @@ PreparedStatement stmt = conn.prepareStatement(
 stmt.setInt(1, uid);
 stmt.setString(2, myColor);
 stmt.executeUpdate();
-if (stmt.getUpdateCount() != 1) {
-    out.print("ERROR");
-} else {
-    int roomId = uid;
-    session.setAttribute("roomId", roomId);
-    out.print("OK:" + roomId);
-}
+int roomId = uid;
+session.setAttribute("roomId", roomId);
+out.print("OK:" + roomId);
 %>

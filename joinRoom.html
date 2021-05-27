@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>中国象棋 | 加入房间</title>
+</head>
+<body>
+
+<label for="roomId">房间号：</label>
+<input type="text" id="roomId"></input>
+<button id="submit">加入</button>
+<span id="status">...</span>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(function() {
+
+$('#submit').click(function() {
+    var roomId = $('#roomId').val();
+    $.post('joinRoom.jsp', {
+        roomId: roomId,
+    }, function(res) {
+        $('#status').html(res);
+        if (res.substr(0, 2) == 'OK')
+            window.location.href = 'index.html';
+    });
+});
+
+});
+</script>
+
+</body>
+</html>

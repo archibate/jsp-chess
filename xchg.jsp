@@ -1,9 +1,10 @@
 <%@ page language="java" import="java.util.*, java.sql.*" contentType="text/plain; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="db.jsp"%>
 <%
-String data = request.getParameter("data");
+int uid = (int)session.getAttribute("uid");
 int roomId = (int)session.getAttribute("roomId");
 String myColor = (String)session.getAttribute("myColor");
+String data = request.getParameter("data");
 PreparedStatement stmt;
 
 if (data.length() != 0) {
