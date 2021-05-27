@@ -14,7 +14,7 @@ class Chess
     this.name = name;
     this.color = color;
     this.map = null;
-    this.dead = false;
+    this.dead = true;
   }
 
   X(x) {
