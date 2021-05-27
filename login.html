@@ -2,16 +2,13 @@
 <html>
 <head lang="zh-cn">
     <meta charset="UTF-8">
-    <title>中国象棋 | 创建房间</title>
+    <title>中国象棋 | 用户登录</title>
 </head>
 <body>
 
-<label for="myColor">我方执</label>
-<select id="myColor">
-    <option value="red" selected>红</option>
-    <option value="black">黑</option>
-</select>
-<button id="submit">创建</button>
+<label for="roomId">用户ID：</label>
+<input type="text" id="uid"></input>
+<button id="submit">登录</button>
 <span id="status">...</span>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -19,13 +16,13 @@
 $(function() {
 
 $('#submit').click(function() {
-    var myColor = $('#myColor').val();
-    $.post('newRoom.jsp', {
-        myColor: myColor,
+    var uid = $('#uid').val();
+    $.post('login.jsp', {
+        uid: uid,
     }, function(res) {
         $('#status').html(res);
         if (res.substr(0, 2) == 'OK')
-            window.location.href = 'chess.html';
+            window.location.href = 'index.html';
     });
 });
 
