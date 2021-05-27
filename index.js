@@ -14,20 +14,33 @@ class Chess
     this.name = name;
     this.color = color;
     this.map = null;
+    this.dead = false;
+  }
+
+  X() {
+    if (this.map != null && this.map.player != 'red')
+      return 8 - this.x;
+    return this.x;
+  }
+
+  Y() {
+    if (this.map != null && this.map.player != 'red')
+      return 9 - this.y;
+    return this.y;
   }
 
   paint(ctx) {
     ctx.fillStyle = '#fc6';
-    ctx.fillRect(this.x * S, this.y * S, S, S);
+    ctx.fillRect(this.X() * S, this.Y() * S, S, S);
     ctx.fillStyle = this.color;
     ctx.font = S + "px 华文隶书";
-    ctx.fillText(this.name, (this.x + 0) * S, (this.y + 0.8) * S);
+    ctx.fillText(this.name, (this.X() + 0) * S, (this.Y() + 0.8) * S);
   }
 
   paintSelection(ctx) {
     ctx.strokeStyle = 'green';
     ctx.lineWidth = 3;
-    ctx.strokeRect(this.x * S, this.y * S, S, S);
+    ctx.strokeRect(this.X() * S, this.Y() * S, S, S);
     var points = this.getMovePoints();
     for (var i in points) {
       var [px, py] = points[i];
@@ -93,6 +106,7 @@ class Map
     this.chesses = [];
     this.lut = null;
     this.selection = null;
+    this.player = null;
   }
 
   buildLUT() {
@@ -101,6 +115,7 @@ class Map
       this.lut.push(-1);
     for (var i in this.chesses) {
       var c = this.chesses[i];
+      if (c.dead) continue;
       this.lut[c.x * 10 + c.y] = i;
     }
   }
@@ -109,6 +124,10 @@ class Map
     var data = '';
     for (var i in this.chesses) {
       var c = this.chesses[i];
+      if (c.dead) {
+        data += '--';
+        continue;
+      }
       var xy = c.x + '' + c.y;
       data += xy;
     }
@@ -118,8 +137,15 @@ class Map
   deserialize(data) {
     for (var i in this.chesses) {
       var c = this.chesses[i];
-      c.x = parseInt(data[i * 2 + 0]);
-      c.y = parseInt(data[i * 2 + 1]);
+      var x = data[i * 2 + 0];
+      var y = data[i * 2 + 1];
+      if (x == '-' && y == '-') {
+        c.dead = true;
+        continue;
+      }
+      c.dead = false;
+      c.x = parseInt(x);
+      c.y = parseInt(y);
     }
   }
 
@@ -140,7 +166,8 @@ class Map
     var i = this.indexAt(x, y);
     if (i == -1)
       return;
-    this.chesses.splice(i, 1);
+    var c = this.chesses[i];
+    c.dead = true;
   }
 
   paint(ctx)
@@ -149,6 +176,7 @@ class Map
     ctx.fillRect(0, 0, 9 * S, 10 * S);
     for (var i in this.chesses) {
       var c = this.chesses[i];
+      if (c.dead) continue;
       c.paint(ctx);
     }
     if (this.selection != null)
@@ -375,12 +403,13 @@ class Canvas {
     this.canvas.height = 10 * S;
     this.ctx = this.canvas.getContext('2d');
     this.canvas.onmousedown = this.onMouseDown.bind(this);
-    this.player = null;
-    this.pendingSend = false;
+    this.moved = false;
+    this.waiting = false;
+    this.oldData = null;
     $.post('myColor.jsp', {
     }, function(res) {
         console.log('MYCOLOR', res);
-        this.player = '' + res;
+        this.map.player = '' + res;
         this.doExchange();
     }.bind(this));
   }
@@ -391,19 +420,33 @@ class Canvas {
   }
 
   doExchange() {
-    var data = this.pendingSend ? this.map.serialize(data) : '';
+    var done = function() {
+      setTimeout(this.doExchange.bind(this), 1000);
+    }.bind(this);
+    var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
     $.post('xchg.jsp', {
       data: data,
-    }, function(res) {
+    }, function(data) {
       console.log('RECV', data);
-      this.map.deserialize(data);
-      this.invalidate();
-      setTimeout(this.doExchange.bind(this), 1000);
+      if (data.length != 0) {
+        if (this.moved)
+          this.waiting = true;
+        else if (data != this.oldData)
+          this.waiting = false;
+        this.oldData = data;
+        this.moved = false;
+        this.map.deserialize(data);
+        this.invalidate();
+      }
+      done();
     }.bind(this));
   }
 
   onMouseDown(e) {
+    if (this.waiting || this.moved)
+      return;
+
     var [mx, my] = [e.offsetX, e.offsetY];
     mx = parseInt(mx / S);
     my = parseInt(my / S);
@@ -411,13 +454,14 @@ class Canvas {
     if (this.map.selection) {
       var [px, py] = [this.map.selection.x, this.map.selection.y];
       if (this.map.selection.tryMoveTo(mx, my)) {
-        var state = this.map.serialize();
-        this.pendingSend = true;
+        this.moved = true;
+        this.map.selection = null;
+        this.invalidate();
         return;
       }
     }
     var c = this.map.at(mx, my);
-    if (c != null && c.color == this.player) {
+    if (c != null && c.color == this.map.player) {
       this.map.selection = c;
       this.invalidate();
     }

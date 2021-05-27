@@ -4,9 +4,10 @@
 String data = request.getParameter("data");
 int roomId = (int)session.getAttribute("roomId");
 String myColor = (String)session.getAttribute("myColor");
+PreparedStatement stmt;
 
-if (data.length) {
-    PreparedStatement stmt = conn.prepareStatement(
+if (data.length() != 0) {
+    stmt = conn.prepareStatement(
     "update room set r_color = ?, r_state = ? where r_no = ? and r_color = ?"
     );
     stmt.setString(1, myColor.equals("red") ? "black" : "red");
@@ -16,13 +17,13 @@ if (data.length) {
     stmt.executeUpdate();
 }
 
-PreparedStatement stmt = conn.prepareStatement(
+stmt = conn.prepareStatement(
 "select r_state from room where r_no = ?"
 );
 stmt.setInt(1, roomId);
 ResultSet rs = stmt.executeQuery();
 if (rs.next()) {
-    String data = rs.getString(1);
+    data = rs.getString(1);
     out.print(data);
 }
 
