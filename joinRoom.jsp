@@ -2,19 +2,18 @@
 <%@ include file="db.jsp"%>
 <%
 int uid = (int)session.getAttribute("uid");
-String myColor = request.getParameter("myColor");
+int roomId = request.getParameter("roomId");
 
 PreparedStatement stmt = conn.prepareStatement(
-"replace into room (r_owner, r_ownerColor) values (?, ?)"
+"update room set r_guest = ? where r_owner = ?"
 );
 stmt.setInt(1, uid);
-stmt.setString(2, myColor);
+stmt.setString(2, roomId);
 stmt.executeUpdate();
 if (stmt.getUpdateCount() != 1) {
     out.print("ERROR");
 } else {
-    int roomId = 1;
     session.setAttribute("roomId", roomId);
-    out.print("OK:" + roomId);
+    out.print(roomId);
 }
 %>

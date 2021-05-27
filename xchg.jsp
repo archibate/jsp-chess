@@ -8,7 +8,7 @@ PreparedStatement stmt;
 
 if (data.length() != 0) {
     stmt = conn.prepareStatement(
-    "update room set r_color = ?, r_state = ? where r_no = ? and r_color = ?"
+    "update room set r_color = ?, r_state = ? where r_owner = ? and r_color = ?"
     );
     stmt.setString(1, myColor.equals("red") ? "black" : "red");
     stmt.setString(2, data);
@@ -18,13 +18,14 @@ if (data.length() != 0) {
 }
 
 stmt = conn.prepareStatement(
-"select r_state, r_color from room where r_no = ?"
+"select r_state, r_color from room where r_owner = ?"
 );
 stmt.setInt(1, roomId);
 ResultSet rs = stmt.executeQuery();
 if (rs.next()) {
     data = rs.getString(1);
-    out.print(!rs.getString(2).equals(myColor) ? "Y" : "N");
+    String nowColor = rs.getString(2);
+    out.print(!nowColor.equals(myColor) ? "Y" : "N");
     out.print(data);
 }
 
