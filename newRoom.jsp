@@ -13,7 +13,7 @@ stmt.executeUpdate();
 if (stmt.getUpdateCount() != 1) {
     out.print("ERROR");
 } else {
-    int roomId = 1;
+    int roomId = uid;
     session.setAttribute("roomId", roomId);
     out.print("OK:" + roomId);
 }

@@ -2,16 +2,16 @@
 <%@ include file="db.jsp"%>
 <%
 int uid = (int)session.getAttribute("uid");
-int roomId = request.getParameter("roomId");
+int roomId = Integer.parseInt(request.getParameter("roomId"));
 
 PreparedStatement stmt = conn.prepareStatement(
 "update room set r_guest = ? where r_owner = ?"
 );
 stmt.setInt(1, uid);
-stmt.setString(2, roomId);
+stmt.setInt(2, roomId);
 stmt.executeUpdate();
 if (stmt.getUpdateCount() != 1) {
-    out.print("ERROR");
+    out.print("NOT_FOUND");
 } else {
     session.setAttribute("roomId", roomId);
     out.print(roomId);
