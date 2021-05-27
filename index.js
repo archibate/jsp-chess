@@ -429,7 +429,7 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 400);
+      setTimeout(this.doExchange.bind(this), 1000);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
