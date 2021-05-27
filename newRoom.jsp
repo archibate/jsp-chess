@@ -12,5 +12,6 @@ stmt.setString(2, myColor);
 stmt.executeUpdate();
 int roomId = uid;
 session.setAttribute("roomId", roomId);
+session.setAttribute("myColor", "");
 out.print("OK:" + roomId);
 %>

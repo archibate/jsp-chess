@@ -14,6 +14,7 @@ if (stmt.getUpdateCount() != 1) {
     out.print("NOT_FOUND");
 } else {
     session.setAttribute("roomId", roomId);
+    session.setAttribute("myColor", "");
     out.print("OK:" + roomId);
 }
 %>

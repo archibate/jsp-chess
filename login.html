@@ -6,8 +6,10 @@
 </head>
 <body>
 
-<label for="roomId">用户ID：</label>
-<input type="text" id="uid"></input>
+<label for="username">用户名：</label>
+<input type="text" id="username"></input>
+<label for="password">密码：</label>
+<input type="text" id="password"></input>
 <button id="submit">登录</button>
 <span id="status">...</span>
 
@@ -16,9 +18,11 @@
 $(function() {
 
 $('#submit').click(function() {
-    var uid = $('#uid').val();
+    var username = $('#username').val();
+    var password = $('#password').val();
     $.post('login.jsp', {
-        uid: uid,
+        username: username,
+        password: password,
     }, function(res) {
         $('#status').html(res);
         if (res.substr(0, 2) == 'OK')

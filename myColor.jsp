@@ -15,7 +15,7 @@ if (rs.next()) {
     if (owner != uid)
         color = color.equals("red") ? "black" : "red";
     session.setAttribute("myColor", color);
-    out.print(color);
+    out.print(roomId + ":" + color);
 } else {
     out.print("ERROR");
 }
