@@ -18,12 +18,13 @@ if (data.length() != 0) {
 }
 
 stmt = conn.prepareStatement(
-"select r_state from room where r_no = ?"
+"select r_state, r_color from room where r_no = ?"
 );
 stmt.setInt(1, roomId);
 ResultSet rs = stmt.executeQuery();
 if (rs.next()) {
     data = rs.getString(1);
+    out.print(!rs.getString(2).equals(myColor) ? "Y" : "N");
     out.print(data);
 }
 

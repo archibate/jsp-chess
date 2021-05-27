@@ -17,16 +17,16 @@ class Chess
     this.dead = false;
   }
 
-  X() {
-    if (this.map != null && this.map.player != 'red')
-      return 8 - this.x;
-    return this.x;
+  X(x) {
+    if (x === undefined)
+      x = this.x;
+    return this.map.X(x);
   }
 
-  Y() {
-    if (this.map != null && this.map.player != 'red')
-      return 9 - this.y;
-    return this.y;
+  Y(y) {
+    if (y === undefined)
+      y = this.y;
+    return this.map.Y(y);
   }
 
   paint(ctx) {
@@ -48,7 +48,7 @@ class Chess
       ctx.strokeStyle = 'green';
       ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.arc((px + 0.5) * S, (py + 0.5) * S, S * 0.1, 0, Math.PI * 2);
+      ctx.arc((this.X(px) + 0.5) * S, (this.Y(py) + 0.5) * S, S * 0.1, 0, Math.PI * 2);
       ctx.stroke();
       ctx.fill();
     }
@@ -107,6 +107,14 @@ class Map
     this.lut = null;
     this.selection = null;
     this.player = null;
+  }
+
+  X(x) {
+    return this.player != 'red' ? 8 - x : x;
+  }
+
+  Y(y) {
+    return this.player != 'red' ? 9 - y : y;
   }
 
   buildLUT() {
@@ -404,7 +412,7 @@ class Canvas {
     this.ctx = this.canvas.getContext('2d');
     this.canvas.onmousedown = this.onMouseDown.bind(this);
     this.moved = false;
-    this.waiting = false;
+    this.waiting = null;
     this.oldData = null;
     $.post('myColor.jsp', {
     }, function(res) {
@@ -421,20 +429,17 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 1000);
+      setTimeout(this.doExchange.bind(this), 400);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
     $.post('xchg.jsp', {
       data: data,
-    }, function(data) {
-      console.log('RECV', data);
-      if (data.length != 0) {
-        if (this.moved)
-          this.waiting = true;
-        else if (data != this.oldData)
-          this.waiting = false;
-        this.oldData = data;
+    }, function(res) {
+      if (res.length != 0) {
+        this.waiting = res[0] == 'Y';
+        var data = res.substr(1);
+        console.log('RECV', data, res[0]);
         this.moved = false;
         this.map.deserialize(data);
         this.invalidate();
@@ -448,8 +453,8 @@ class Canvas {
       return;
 
     var [mx, my] = [e.offsetX, e.offsetY];
-    mx = parseInt(mx / S);
-    my = parseInt(my / S);
+    mx = this.map.X(parseInt(mx / S));
+    my = this.map.Y(parseInt(my / S));
 
     if (this.map.selection) {
       var [px, py] = [this.map.selection.x, this.map.selection.y];
