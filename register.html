@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>中国象棋 | 用户注册</title>
+</head>
+<body>
+
+<label for="username">用户名：</label>
+<input type="text" id="username"></input>
+</br>
+<label for="password">密码：</label>
+<input type="text" id="password"></input>
+</br>
+<label for="age">年龄：</label>
+<input type="text" id="age"></input>
+</br>
+<label for="sex">性别：</label>
+<select id="sex">
+    <option value="M">男</option>
+    <option value="F">女</option>
+</select>
+</br>
+<button id="submit">注册</button>
+<span id="status">...</span>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(function() {
+
+$('#submit').click(function() {
+    var username = $('#username').val();
+    var password = $('#password').val();
+    var age = parseInt($('#age').val());
+    var sex = $('#sex').val();
+    $.post('register.jsp', {
+        username: username,
+        password: password,
+        age: age,
+        sex: sex,
+    }, function(res) {
+        $('#status').html(res);
+        if (res.substr(0, 2) == 'OK')
+            window.location.href = 'login.html';
+    });
+});
+
+});
+</script>
+
+</body>
+</html>

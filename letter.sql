@@ -6,7 +6,7 @@ use letterdb;
 create table user
     ( u_no int not null auto_increment
     , u_name varchar(64) not null
-    , u_sex enum('男', '女') not null
+    , u_sex enum('M', 'F') not null
     , u_age int not null
     , u_passwd varchar(64) not null
     , primary key (u_no)
@@ -25,11 +25,11 @@ create table room
       on delete cascade on update cascade
 );
 
-insert into user values (null, "刘孙伟", "男", 19, "liu");
-insert into user values (null, "朱丽娟", "女", 95, "zhu");
-insert into user values (null, "彭于斌", "女", 19, "pen");
-insert into user values (null, "尤阳宇", "男", 19, "you");
-insert into user values (null, "马克思", "男", 99, "max");
-insert into user values (null, "马舒婷", "女", 36, "shu");
-insert into user values (null, "马云", "男", 996, "yun");
+insert into user values (null, "刘孙伟", "M", 19, "liu");
+insert into user values (null, "朱丽娟", "F", 95, "zhu");
+insert into user values (null, "彭于斌", "F", 19, "pen");
+insert into user values (null, "尤阳宇", "M", 19, "you");
+insert into user values (null, "马克思", "M", 99, "max");
+insert into user values (null, "马舒婷", "F", 36, "shu");
+insert into user values (null, "马云", "M", 996, "yun");
 select * from user;
