@@ -1,4 +1,4 @@
-default: reset copy
+default: reset
 
 reset:
 	-echo drop database letterdb | ./sql.sh

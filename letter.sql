@@ -25,6 +25,12 @@ create table room
       on delete cascade on update cascade
 );
 
+create table Administrator
+    ( name varchar(64) not null
+    , password varchar(64) not null
+    , primary key (name)
+);
+
 insert into user values (null, "刘孙伟", "M", 19, "liu");
 insert into user values (null, "朱丽娟", "F", 95, "zhu");
 insert into user values (null, "彭于斌", "F", 19, "pen");
@@ -33,3 +39,5 @@ insert into user values (null, "马克思", "M", 99, "max");
 insert into user values (null, "马舒婷", "F", 36, "shu");
 insert into user values (null, "马云", "M", 996, "yun");
 select * from user;
+
+insert into Administrator values ("彭于斌", "sir");
