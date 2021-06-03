@@ -1,15 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
-    <meta charset="UTF-8">
-    <title>中国象棋 | 加入房间</title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>中国象棋 | 加入房间</title>
+<meta name="description" content="Custom Login Form Styling with CSS3" />
+<meta name="keywords" content="css3, login, form, custom, input, submit, button, html5, placeholder" />
+<meta name="author" content="Codrops" />
+<link rel="shortcut icon" href="../favicon.ico"> 
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="js/modernizr.custom.63321.js"></script>
+<!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 </head>
-<body>
-
-<label for="roomId">房间号：</label>
-<input type="text" id="roomId"></input>
-<button id="submit">加入</button>
-<span id="status">...</span>
+  <body>
+    <div id="Layer" style="position:absolute; left:0px; top:0px; width:100%; height:100%">
+     <img src="Bamboo.jpg" width="100%" height="100%"/>
+    </div>
+  <center>
+<div class="form-4">
+<h1>加 入 房 间</h1>
+<br/>
+<br/>
+<br/>
+            <p>
+                <input type="text" id="roomId" placeholder="房间号" required> 
+            </p>
+<!-- span id="status">...</span -->
+			<p>
+                <input type="submit" id="submit" value="加   入">
+            </p>   
+  </center>
+  </body>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -20,14 +42,14 @@ $('#submit').click(function() {
     $.post('joinRoom.jsp', {
         roomId: roomId,
     }, function(res) {
-        $('#status').html(res);
+        //$('#status').html(res);
         if (res.substr(0, 2) == 'OK')
             window.location.href = 'chess.html';
+        else
+            alert(res);
     });
 });
 
 });
 </script>
-
-</body>
 </html>
