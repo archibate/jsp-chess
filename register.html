@@ -39,11 +39,6 @@
 </td>
 </tr>
 <tr>
-<td>年龄：</td>
-<td><input type="text" id="age" required/>
-</td>
-</tr>
-<tr>
 <td>性别：</td>
 <td>
 <select id="sex" required>
@@ -72,12 +67,10 @@ $('#submit').click(function() {
         return;
     }
     var sex = $('#sex').val();
-    var age = $('#age').val();
     $.post('register.jsp', {
         username: username,
         password: password,
         sex: sex,
-        age: age,
     }, function(res) {
         if (res.substr(0, 2) == 'OK')
             window.location.href = 'login.html';

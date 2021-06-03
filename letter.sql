@@ -7,9 +7,10 @@ create table user
     ( u_no int not null auto_increment
     , u_name varchar(64) not null
     , u_sex enum('M', 'F') not null
-    , u_age int not null
     , u_passwd varchar(64) not null
+    , u_regdate char(10) default null
     , primary key (u_no)
+    , unique (u_name)
 );
 
 create table room
@@ -31,13 +32,13 @@ create table Administrator
     , primary key (name)
 );
 
-insert into user values (null, "刘孙伟", "M", 19, "liu");
-insert into user values (null, "朱丽娟", "F", 95, "zhu");
-insert into user values (null, "彭于斌", "F", 19, "pen");
-insert into user values (null, "尤阳宇", "M", 19, "you");
-insert into user values (null, "马克思", "M", 99, "max");
-insert into user values (null, "马舒婷", "F", 36, "shu");
-insert into user values (null, "马云", "M", 996, "yun");
+insert into user values (null, "刘孙伟", "M", "liu", null);
+insert into user values (null, "朱丽娟", "F", "zhu", null);
+insert into user values (null, "彭于斌", "F", "pen", null);
+insert into user values (null, "尤阳宇", "M", "you", null);
+insert into user values (null, "马克思", "M", "max", null);
+insert into user values (null, "马舒婷", "F", "shu", null);
+insert into user values (null, "马云", "M", "yun", null);
 select * from user;
 
 insert into Administrator values ("彭于斌", "sir");
