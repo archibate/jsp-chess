@@ -32,12 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
 <%@ include file="db.jsp"%><%
    Statement sts=conn.createStatement();
-   String sql="select * from UserTable";
+   String sql="select * from user";
    ResultSet rs=sts.executeQuery(sql);%>
    <table border="1"><tr><td>用户名</td><td>密码</td><td>是否删除</td></tr>
-         <% 
+         <%
    while(rs.next())
-   out.print("<tr><td>"+rs.getString("username")+"</td><td>"+rs.getString("password")+"</td><td><a href=DeleteHandle.jsp?username="+rs.getString("username")+">是</a></td><tr>");
+   out.print("<tr><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_passwd")+"</td><td><a href=DeleteHandle.jsp?username="+rs.getString("u_name")+">是</a></td><tr>");
    rs.close();
    %>
   </body>

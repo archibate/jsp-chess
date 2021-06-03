@@ -25,9 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <%String name=request.getParameter("username"); 
     out.print("该用户删除成功！");
-        Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433; DatabaseName=Chess","sa","123456");
+        %><%@ include file="db.jsp"%><%
     Statement sts=conn.createStatement();
-    String sql="delete from UserTable where username='"+name+"'";
+    String sql="delete from user where u_name='"+name+"'";
     sts.executeUpdate(sql);
     %>
   </body>
