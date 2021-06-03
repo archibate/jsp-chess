@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*,java.sql.*" pageEncoding="UTF-8"%>
 <%
+if (session.getAttribute("AdministratorName")==null)
+    response.sendError(403, "No Admin Login");
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
