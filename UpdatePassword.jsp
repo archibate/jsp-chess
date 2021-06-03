@@ -27,7 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       Statement sts=conn.createStatement();
       String sql="update user set u_passwd='"+password+"' where u_name='"+username+"'";
       sts.executeUpdate(sql);
-	  out.print("修改信息成功!");
+      if (sts.getUpdateCount() == 1)
+	    out.print("修改信息成功!" + username);
+      else
+	    out.print("修改信息失败!" + username);
     %>
   </body>
 </html>

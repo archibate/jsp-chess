@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <img src="BambooPlus.jpg" width="100%" height="100%"/>
     </div>
   <center>
-<form class="form-4" action="UpdatePassword.jsp" method="post">
+<form class="form-4" action="UpdatePassword.jsp" method="get">
   <tr>
     <h1><td width="100%" colspan="2" align="center"><font color=white>象棋用户信息更新平台</font></td></h1>
   </tr>
