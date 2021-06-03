@@ -1,28 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
-    <meta charset="UTF-8">
-    <title>中国象棋 | 用户注册</title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>中国象棋 | 用户注册</title>
+<meta name="description" content="Custom Login Form Styling with CSS3" />
+<meta name="keywords" content="css3, login, form, custom, input, submit, button, html5, placeholder" />
+<meta name="author" content="Codrops" />
+<link rel="shortcut icon" href="../favicon.ico"> 
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="js/modernizr.custom.63321.js"></script>
+<!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 </head>
-<body>
-
-<label for="username">用户名：</label>
-<input type="text" id="username"></input>
-</br>
-<label for="password">密码：</label>
-<input type="text" id="password"></input>
-</br>
-<label for="age">年龄：</label>
-<input type="text" id="age"></input>
-</br>
-<label for="sex">性别：</label>
-<select id="sex">
-    <option value="M">男</option>
-    <option value="F">女</option>
-</select>
-</br>
-<button id="submit">注册</button>
-<span id="status">...</span>
+  <body>
+    <div id="Layer" style="position:absolute; left:0px; top:0px; width:100%; height:100%">
+     <img src="Floor.jpg" width="100%" height="100%"/>
+    </div>
+  <center>
+<form class="form-4" action="#">
+<h1>欢   迎   注   册</h1>
+<br/>
+<br/>
+<br/>
+<tr>
+<td>用户名：</td>
+<td><input type="text" id="username" required/>
+</td>
+</tr>
+<tr>
+<td>密码：</td>
+<td><input type="text" id="password" required/>
+</td>
+</tr>
+<tr>
+<td>确认密码：</td>
+<td><input type="text" id="confirmPassword" required/>
+</td>
+</tr>
+<tr>
+<td>年龄：</td>
+<td><input type="text" id="age" required/>
+</td>
+</tr>
+<tr>
+<td>性别：</td>
+<td>
+<select id="sex" required>
+ <option value="M" selected>男</option>
+ <option value="F">女</option>
+</select><br>
+</td>
+</tr>
+    <tr>
+    <td colspan="2" align="center">　<input type="submit" id="submit" value="注册"></td>
+    </tr>
+</form>
+  </center>
+  </body>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -31,22 +66,26 @@ $(function() {
 $('#submit').click(function() {
     var username = $('#username').val();
     var password = $('#password').val();
-    var age = parseInt($('#age').val());
+    var confirmPassword = $('#confirmPassword').val();
+    if (password != confirmPassword) {
+        alert('两次输入的密码不一致！请检查');
+        return;
+    }
     var sex = $('#sex').val();
+    var age = $('#age').val();
     $.post('register.jsp', {
         username: username,
         password: password,
-        age: age,
         sex: sex,
+        age: age,
     }, function(res) {
-        $('#status').html(res);
         if (res.substr(0, 2) == 'OK')
             window.location.href = 'login.html';
+        else
+            alert(res);
     });
 });
 
 });
 </script>
-
-</body>
 </html>
