@@ -90,26 +90,6 @@ if (rs.next()) {
 			</p>
                 <h5><a href="Rank.jsp"><font size="6px">积 分 榜</font></a></h5>
             <p>
-			<br/>
-			<br/>
-			<br/>
-			</p>
-            <p>
-			
   </center>
   </body>
 </html>
-
-<a href="register.html">用户注册</a>
-<a href="login.html">用户登录</a>
-<a href="SessionLogout.html">退出登录</a>
-|
-<a href="joinRoom.html">加入房间</a>
-<a href="newRoom.html">创建房间</a>
-<a href="chess.html">当前对战</a>
-
-</script>
-
-</body>
-</html>
-
