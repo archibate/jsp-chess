@@ -231,17 +231,17 @@ class Map
   isLose()
   {
     if (this.player == 'red')
-      return this.chesses[4].dead;
-    else
       return this.chesses[20].dead;
+    else
+      return this.chesses[4].dead;
   }
 
   isWin()
   {
     if (this.player == 'red')
-      return this.chesses[20].dead;
-    else
       return this.chesses[4].dead;
+    else
+      return this.chesses[20].dead;
   }
 
   initialize()
@@ -480,7 +480,7 @@ class Canvas {
       }
 
       if (this.map.isLose()) {
-        alert('恭喜，你输了！');
+        $('#statBar').html('很遗憾，你输了！');
         done = function() {};
 
         $.post('youLose.jsp', {
@@ -490,7 +490,7 @@ class Canvas {
           }
         });
       } else if (this.map.isWin()) {
-        alert('恭喜，你赢了！');
+        $('#statBar').html('恭喜，你赢了！');
         done = function() {};
       }
 
