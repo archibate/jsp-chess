@@ -15,6 +15,7 @@ ResultSet rs = stmt.executeQuery();
 
 if (!rs.next()) {
     out.print("ERROR0");
+    return;
 }
 
 int enemyUid = -1;

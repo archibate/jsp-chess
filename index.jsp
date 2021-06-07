@@ -45,6 +45,7 @@ if (rs.next()) {
     <tr> <th>用户名</th> <td><% out.print(username); %></td> </tr>
     <tr> <th>积分点数</th> <td><% out.print(point); %></td> </tr>
     <tr> <th>总局数</th> <td><% out.print(round); %></td> </tr>
+    <tr> <th>胜率</th> <td><% out.print(point * 100 / Math.max(round, 1) + "%"); %></td> </tr>
     </table>
     <%
 } else {
