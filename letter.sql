@@ -34,13 +34,13 @@ create table Administrator
     , primary key (name)
 );
 
-insert into user values (null, "刘孙伟", "M", "liu", null);
-insert into user values (null, "朱丽娟", "F", "zhu", null);
-insert into user values (null, "彭于斌", "F", "pen", null);
-insert into user values (null, "尤阳宇", "M", "you", null);
-insert into user values (null, "马克思", "M", "max", null);
-insert into user values (null, "马舒婷", "F", "shu", null);
-insert into user values (null, "马云", "M", "yun", null);
+insert into user values (null, "刘孙伟", "M", "liu", null, 6, 8);
+insert into user values (null, "朱丽娟", "F", "zhu", null, 0, 13);
+insert into user values (null, "彭于斌", "F", "pen", null, 4, 10);
+insert into user values (null, "尤阳宇", "M", "you", null, 1, 2);
+insert into user values (null, "马克思", "M", "max", null, 0, 0);
+insert into user values (null, "马舒婷", "F", "shu", null, 0, 1);
+insert into user values (null, "马云", "M", "yun", null, 1, 8);
 select * from user;
 
 insert into Administrator values ("彭于斌", "sir");
