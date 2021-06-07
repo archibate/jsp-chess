@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>删除用户页面</title>
+<title>积分排行榜页面</title>
 <meta name="description" content="Custom Login Form Styling with CSS3" />
 <meta name="keywords" content="css3, login, form, custom, input, submit, button, html5, placeholder" />
 <meta name="author" content="Codrops" />
@@ -49,20 +49,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <center>
 <form class="form-4">
   <tr>
-    <h1><td width="100%" colspan="2" align="center"><font color=white>象棋用户信息删除平台</font></td></h1>
+    <h1><td width="100%" colspan="2" align="center"><font color=white>用 户 积 分 排 行 榜</font></td></h1>
   </tr>
   <br/>
   <br/>
   <br/>
-<%@ include file="db.jsp"%><%
-   Statement sts=conn.createStatement();
-   String sql="select * from user";
-   ResultSet rs=sts.executeQuery(sql);%>
-   <table class="imagetable"><tr><th>用户名</th><th>密码</th><th>是否删除</th></tr>
-         <% 
-   while(rs.next())
-   out.print("<tr><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_passwd")+"</td><td><a href=DeleteHandle.jsp?username="+rs.getString("u_name")+">是</a></td><tr>");
-   rs.close();
-   %>
+<%Connection conn=DriverManager.getConnection("jdbc:sqlserver://localhost:1433; DatabaseName=Chess","sa","123456");
+  Statement sts=conn.createStatement();
+  String sql="select * from UserTable order by point DESC";
+  ResultSet rs=sts.executeQuery(sql);
+  int i=1;%>
+<table class="imagetable"><tr><th>名次</th><th>用户名</th><th>积分</th><th>总局数</th><th>胜率</th></tr>
+<%while(rs.next()){
+  int pointint=Integer.parseInt(rs.getString("point"));
+  int roundint=Integer.parseInt(rs.getString("round"));
+  int x=(int)((double)(pointint)/(roundint)*100);
+        out.print("<tr><td>"+i+"</td><td>"+rs.getString("username")+"</td><td>"+rs.getString("point")+"</td><td>"+rs.getString("round")+"</td><td>"+x+"%</td></tr>");
+        i++;}
+  rs.close();%>
+</form>
   </body>
 </html>

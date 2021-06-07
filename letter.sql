@@ -9,6 +9,8 @@ create table user
     , u_sex enum('M', 'F') not null
     , u_passwd varchar(64) not null
     , u_regdate char(10) default null
+    , u_point int default 0
+    , u_round int default 0
     , primary key (u_no)
     , unique (u_name)
 );

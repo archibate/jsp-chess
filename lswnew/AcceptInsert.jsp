@@ -1,7 +1,5 @@
 <%@ page language="java" import="java.util.*,java.sql.*,java.text.SimpleDateFormat" pageEncoding="UTF-8"%>
 <%
-if (session.getAttribute("AdministratorName")==null)
-    response.sendError(403, "No Admin Login");
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
@@ -17,9 +15,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  java.util.Date date=new java.util.Date();
  SimpleDateFormat ft=new SimpleDateFormat("yyyy-MM-dd");
  String registertime=ft.format(date);
- sqlString="insert into user (u_name, u_passwd, u_sex, u_regdate, u_point, u_round)values('"+username+"','"+password+"','"+sex+"','"+registertime+"',0,0)";
+ sqlString="insert into UserTable values('"+username+"','"+password+"','"+sex+"','"+registertime+"','"+point+"','"+round+"')";
 %>
-<%@ include file="db.jsp"%><%//执行SQL语句
+<%//执行SQL语句
+	Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433; DatabaseName=Chess","sa","123456");
     Statement sts=conn.createStatement();
     sts.executeUpdate(sqlString);  
 %>
@@ -27,6 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>用户信息增加程序</title>
 </head>
 <body>
-<%if (sts.getUpdateCount() == 1) { out.print("信息增加成功！"); } else { out.print("信息增加失败！"); } %>
+<%out.print("信息增加成功！");%>
 </body>
 </html>
