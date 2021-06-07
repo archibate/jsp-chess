@@ -6,7 +6,7 @@
 
 $(function() {
 
-const S = 36;
+const S = 64;
 
 class Chess
 {
@@ -182,7 +182,7 @@ class Map
 
   paint(ctx)
   {
-    ctx.fillStyle = 'aliceblue';
+    ctx.fillStyle = '#fed';
     ctx.fillRect(0, 0, 9 * S, 10 * S);
     for (var i in this.chesses) {
       var c = this.chesses[i];
@@ -433,7 +433,7 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 1000);
+      setTimeout(this.doExchange.bind(this), 10000);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
