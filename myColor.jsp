@@ -2,6 +2,10 @@
 <%@ include file="db.jsp"%>
 <%
 int uid = (int)session.getAttribute("uid");
+if (session.getAttribute("roomId") == null) {
+    out.print("ERROR");
+    return;
+}
 int roomId = (int)session.getAttribute("roomId");
 
 PreparedStatement stmt = conn.prepareStatement(

@@ -85,6 +85,12 @@ if (rs.next()) {
                 <h5><a href="chess.html"><font size="6px">当 前 对 战</font></a></h5>
             <p>
 			<br/>
+            <hr/>
+			<br/>
+			</p>
+                <h5><a href="Rank.jsp"><font size="6px">积 分 榜</font></a></h5>
+            <p>
+			<br/>
 			<br/>
 			<br/>
 			</p>

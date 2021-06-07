@@ -54,17 +54,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
   <br/>
   <br/>
-<%Connection conn=DriverManager.getConnection("jdbc:sqlserver://localhost:1433; DatabaseName=Chess","sa","123456");
+<%@ include file="db.jsp"%><%//执行SQL语句
   Statement sts=conn.createStatement();
-  String sql="select * from UserTable order by point DESC";
+  String sql="select * from user order by u_point DESC";
   ResultSet rs=sts.executeQuery(sql);
   int i=1;%>
 <table class="imagetable"><tr><th>名次</th><th>用户名</th><th>积分</th><th>总局数</th><th>胜率</th></tr>
 <%while(rs.next()){
-  int pointint=Integer.parseInt(rs.getString("point"));
-  int roundint=Integer.parseInt(rs.getString("round"));
-  int x=(int)((double)(pointint)/(roundint)*100);
-        out.print("<tr><td>"+i+"</td><td>"+rs.getString("username")+"</td><td>"+rs.getString("point")+"</td><td>"+rs.getString("round")+"</td><td>"+x+"%</td></tr>");
+  int pointint=Integer.parseInt(rs.getString("u_point"));
+  int roundint=Integer.parseInt(rs.getString("u_round"));
+  int rate=pointint*100/Math.max(roundint,1);
+        out.print("<tr><td>"+i+"</td><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_point")+"</td><td>"+rs.getString("u_round")+"</td><td>"+rate+"%</td></tr>");
         i++;}
   rs.close();%>
 </form>
