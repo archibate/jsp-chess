@@ -34,9 +34,9 @@ String s="select * from Administrator where name='"+name+"' and password='"+pass
   <body>
   <%if(count==1){
        session.setAttribute("AdministratorName",name);
-	   response.sendRedirect("AdminMain.html");} 
+	   response.sendRedirect("AdminMain.html");
        return;
-	else{%>
+	}else{%>
            很遗憾，登录失败,<%=name%><br/>
   <%}%>
   </body>

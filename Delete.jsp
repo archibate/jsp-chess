@@ -15,30 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="author" content="Codrops" />
 <link rel="shortcut icon" href="../favicon.ico"> 
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="table.css" />
 <script src="js/modernizr.custom.63321.js"></script>
     <style type="text/css">
-    table.imagetable {
-        font-family: verdana,arial,sans-serif;
-        font-size:11px;
-        color:#333333;
-        border-width: 1px;
-        border-color: #999999;
-        border-collapse: collapse;
-    }
-    table.imagetable th {
-        background:#b5cfd2 url('cell-blue.jpg');
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #999999;
-    }
-    table.imagetable td {
-        background:#dcddc0 url('cell-grey.jpg');
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #999999;
-    }
     </style>
 <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 </head>

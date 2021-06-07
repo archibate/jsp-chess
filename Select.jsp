@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="author" content="Codrops" />
 <link rel="shortcut icon" href="../favicon.ico"> 
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="table.css" />
 <script src="js/modernizr.custom.63321.js"></script>
 <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 </head>
@@ -34,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    Statement sts=conn.createStatement();
    String sql="select * from user";
    ResultSet rs=sts.executeQuery(sql);%>
-   <table border=1><tr><td>用户名</td><td>密码</td><td>性别</td><td>注册时间</td></tr>
+   <table class="imagetable"><tr><th>用户名</th><th>密码</th><th>性别</th><th>注册时间</th></tr>
    <% 
    while(rs.next())
    out.print("<tr><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_passwd")+"</td><td>"+(rs.getString("u_sex").equals("M")?"男":"女")+"</td><td>"+rs.getString("u_regdate")+"</td></tr>");

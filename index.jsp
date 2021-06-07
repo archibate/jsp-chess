@@ -7,6 +7,7 @@
     <title>中国象棋 | 首页</title>
     <link rel="shortcut icon" href="../favicon.ico"> 
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="table.css" />
     <script src="js/modernizr.custom.63321.js"></script>
     <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 </head>
@@ -19,6 +20,7 @@
             </p>
                 <h1><font size="10px">用  户  首  页</font></a></h1>
             <p>
+			<br/>
 			<br/>
 <%
 if (session.getAttribute("uid") == null) {
@@ -38,11 +40,11 @@ if (rs.next()) {
     int point = rs.getInt(2);
     int round = rs.getInt(3);
     %>
-    <table>
-    <tr> <td>用户编号</td> <td><% out.print(uid); %></td> </tr>
-    <tr> <td>用户名</td> <td><% out.print(username); %></td> </tr>
-    <tr> <td>积分点数</td> <td><% out.print(point); %></td> </tr>
-    <tr> <td>总局数</td> <td><% out.print(round); %></td> </tr>
+    <table class="imagetable">
+    <tr> <th>用户编号</th> <td><% out.print(uid); %></td> </tr>
+    <tr> <th>用户名</th> <td><% out.print(username); %></td> </tr>
+    <tr> <th>积分点数</th> <td><% out.print(point); %></td> </tr>
+    <tr> <th>总局数</th> <td><% out.print(round); %></td> </tr>
     </table>
     <%
 } else {
@@ -51,7 +53,6 @@ if (rs.next()) {
     <%
 }
 %><br/>
-			<br/>
 			<br/>
             </p>
                 <h2><a href="register.html"><font size="6px">用 户 注 册</font></a></h2>
@@ -67,9 +68,7 @@ if (rs.next()) {
                 <h4><a href="SessionLogout.jsp"><font size="6px">退 出 登 录</font></a></h4>
             <p>
 			<br/>
-
             <hr/>
-
 			<br/>
 			</p>
                 <h5><a href="joinRoom.html"><font size="6px">加 入 房 间</font></a></h5>
