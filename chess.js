@@ -6,7 +6,7 @@
 
 $(function() {
 
-const S = 64;
+const S = 75;
 
 class Chess
 {
@@ -228,6 +228,22 @@ class Map
     return 0 <= x && x < 9 && 0 <= y && y < 10;
   }
 
+  isLose()
+  {
+    if (this.player == 'red')
+      return this.chesses[4].dead;
+    else
+      return this.chesses[20].dead;
+  }
+
+  isWin()
+  {
+    if (this.player == 'red')
+      return this.chesses[20].dead;
+    else
+      return this.chesses[4].dead;
+  }
+
   initialize()
   {
     this.chesses = [];
@@ -430,8 +446,12 @@ class Canvas {
     }, function(res) {
         var [roomId, myColor] = res.split(':');
         console.log('MYCOLOR', myColor, roomId);
-        this.map.player = myColor;
         $('#roomId').html(roomId);
+        if (roomId == 'ERROR') {
+          alert('房间不存在或已解散！');
+          window.location.href = 'index.jsp';
+        }
+        this.map.player = myColor;
         this.doExchange();
     }.bind(this));
   }
@@ -443,7 +463,7 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 10000);
+      setTimeout(this.doExchange.bind(this), 1000);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
@@ -458,6 +478,22 @@ class Canvas {
         this.map.deserialize(data);
         this.invalidate();
       }
+
+      if (this.map.isLose()) {
+        alert('恭喜，你输了！');
+        done = function() {};
+
+        $.post('youLose.jsp', {
+        }, function(res) {
+          if (res != 'OK') {
+            alert(res);
+          }
+        });
+      } else if (this.map.isWin()) {
+        alert('恭喜，你赢了！');
+        done = function() {};
+      }
+
       done();
     }.bind(this));
   }

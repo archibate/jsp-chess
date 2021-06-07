@@ -5,12 +5,12 @@
     <title>中国象棋 | 战斗</title>
     <style>
         canvas {
-            top: 5%;
-            left: 5%;
-            height: 90%;
+            top: 8%;
+            left: 8%;
+            height: 84%;
             border: 6px solid brown;
         }
-        div.roomInfo {
+        .roomInfo {
             background-color: brown;
             font-family: verdana,arial,sans-serif;
         }
@@ -23,12 +23,15 @@
      <img src="WoodFace.jpg" width="100%" height="100%"/>
     </div>
 
-<div class="roomInfo">
+<center class="roomInfo">
 <font color="#fc6" size="8px">
 <font size="6px">房间号：</font><i><b id="roomId">...</b></i>
 </font>
-</div>
-<canvas id="canvas"></canvas>
+</center>
+
+<center>
+    <canvas id="canvas"></canvas>
+</center>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="chess.js"></script>
