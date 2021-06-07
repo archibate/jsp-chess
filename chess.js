@@ -33,22 +33,32 @@ class Chess
 
   paint(ctx) {
     ctx.fillStyle = '#fc6';
-    ctx.fillRect(this.X() * S, this.Y() * S, S, S);
+    ctx.strokeStyle = this.color;
+    ctx.beginPath();
+    ctx.arc((this.X() + 0.5) * S, (this.Y() + 0.5) * S, S * 0.48, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc((this.X() + 0.5) * S, (this.Y() + 0.5) * S, S * 0.42, 0, Math.PI * 2);
+    ctx.stroke();
     ctx.fillStyle = this.color;
-    ctx.font = S + "px 华文隶书";
-    ctx.fillText(this.name, (this.X() + 0) * S, (this.Y() + 0.8) * S);
+    ctx.font = (S * 0.75) + "px HuaWenLiShu";
+    ctx.fillText(this.name, (this.X() + 0.12) * S, (this.Y() + 0.73) * S);
   }
 
   paintSelection(ctx) {
     ctx.strokeStyle = 'green';
     ctx.lineWidth = 3;
-    ctx.strokeRect(this.X() * S, this.Y() * S, S, S);
+    //ctx.strokeRect(this.X() * S, this.Y() * S, S, S);
+    ctx.beginPath();
+    ctx.arc((this.X() + 0.5) * S, (this.Y() + 0.5) * S, S * 0.5, 0, Math.PI * 2);
+    ctx.stroke();
     var points = this.getMovePoints();
     for (var i in points) {
       var [px, py] = points[i];
       ctx.fillStyle = 'lightgreen';
       ctx.strokeStyle = 'green';
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 5;
       ctx.beginPath();
       ctx.arc((this.X(px) + 0.5) * S, (this.Y(py) + 0.5) * S, S * 0.1, 0, Math.PI * 2);
       ctx.stroke();
