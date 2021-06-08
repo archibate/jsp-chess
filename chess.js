@@ -194,6 +194,48 @@ class Map
   {
     ctx.fillStyle = '#fed';
     ctx.fillRect(0, 0, 9 * S, 10 * S);
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'black';
+    ctx.beginPath();
+    for (var i = 0; i < 10; i++) {
+      ctx.moveTo(0.5 * S, (i + 0.5) * S);
+      ctx.lineTo(8.5 * S, (i + 0.5) * S);
+    }
+    ctx.moveTo(0.5 * S, 0.5 * S);
+    ctx.lineTo(0.5 * S, 9.5 * S);
+    ctx.moveTo(8.5 * S, 0.5 * S);
+    ctx.lineTo(8.5 * S, 9.5 * S);
+    for (var i = 1; i < 8; i++) {
+      ctx.moveTo((i + 0.5) * S, 0.5 * S);
+      ctx.lineTo((i + 0.5) * S, 4.5 * S);
+      ctx.moveTo((i + 0.5) * S, 5.5 * S);
+      ctx.lineTo((i + 0.5) * S, 9.5 * S);
+    }
+    ctx.moveTo(3.5 * S, 0.5 * S);
+    ctx.lineTo(5.5 * S, 2.5 * S);
+    ctx.moveTo(5.5 * S, 0.5 * S);
+    ctx.lineTo(3.5 * S, 2.5 * S);
+    ctx.moveTo(3.5 * S, 9.5 * S);
+    ctx.lineTo(5.5 * S, 7.5 * S);
+    ctx.moveTo(5.5 * S, 9.5 * S);
+    ctx.lineTo(3.5 * S, 7.5 * S);
+    ctx.stroke();
+
+    ctx.lineWidth = 5;
+    ctx.strokeRect(0.35 * S, 0.35 * S, 8.3 * S, 9.3 * S);
+
+    if (this.player != null) {
+      ctx.fillStyle = 'black';
+      ctx.font = (S * 0.75) + "px HuaWenLiShu";
+      if (this.player != 'red')
+        ctx.setTransform(-1, 0, 0, -1, 9 * S, 10 * S);
+      ctx.fillText('汉界', (5.5 + 0.12) * S, (5 - 0.5 + 0.73) * S);
+      ctx.transform(-1, 0, 0, -1, 9 * S, 10 * S);
+      ctx.fillText('楚河', (5.5 + 0.12) * S, (5 - 0.5 + 0.73) * S);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
     for (var i in this.chesses) {
       var c = this.chesses[i];
       if (c.dead) continue;
@@ -463,7 +505,7 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 1000);
+      setTimeout(this.doExchange.bind(this), 10000);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
