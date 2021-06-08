@@ -482,7 +482,7 @@ class Canvas {
     this.ctx = this.canvas.getContext('2d');
     this.canvas.onmousedown = this.onMouseDown.bind(this);
     this.moved = false;
-    this.waiting = null;
+    this.waiting = true;
     this.oldData = null;
     $.post('myColor.jsp', {
     }, function(res) {
@@ -521,6 +521,12 @@ class Canvas {
         this.invalidate();
       }
 
+      if (this.waiting) {
+        $('#statBar').html('等待对方走子');
+      } else {
+        $('#statBar').html('该你走子');
+      }
+
       if (this.map.isLose()) {
         $('#statBar').html('很遗憾，你输了！');
         done = function() {};
@@ -552,6 +558,7 @@ class Canvas {
       var [px, py] = [this.map.selection.x, this.map.selection.y];
       if (this.map.selection.tryMoveTo(mx, my)) {
         this.moved = true;
+        $('#statBar').html('正在提交数据...');
         this.map.selection = null;
         this.invalidate();
         return;

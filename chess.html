@@ -11,9 +11,9 @@
             border: 6px solid brown;
         }
         center.roomInfo {
-            background-color: brown;
             font-family: verdana,arial,sans-serif;
             text-shadow: 2px 2px grey;
+            color: brown;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="css/huawenlishu.css" />
@@ -21,17 +21,21 @@
 <body>
 
 <div id="Layer" style="position:absolute; z-index: -1; left:0px; top:0px; width:100%; height:100%">
-     <img src="WoodFace.jpg" width="100%" height="100%"/>
+     <img src="Floor.jpg" width="100%" height="100%"/>
     </div>
 
 <center class="roomInfo">
-<font color="#fc6" size="8px" id="statBar">
-<font size="6px">房间号：</font><i><b id="roomId">...</b></i>
+<font size="6px">
+<font size="6px">房间号：</font><font size="8px"><i><b id="roomId">...</b></i></font>
 </font>
-</center>
 
-<center>
+    <br/>
+    <br/>
     <canvas id="canvas"></canvas>
+    <br/>
+    <br/>
+
+<font size="6px"><b id="statBar">...</b></i></font>
 </center>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
