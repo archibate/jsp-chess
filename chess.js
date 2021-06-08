@@ -495,6 +495,7 @@ class Canvas {
         }
         this.map.player = myColor;
         this.doExchange();
+        this.doGetEnemyInfo();
     }.bind(this));
   }
 
@@ -503,9 +504,30 @@ class Canvas {
     this.map.paint(this.ctx);
   }
 
+  doGetEnemyInfo() {
+    var done = function() {
+      setTimeout(this.doGetEnemyInfo.bind(this), 4000);
+    }.bind(this);
+
+    $.post('enemyInfo.jsp', {
+    }, function(res) {
+      console.log('ENEMY', res);
+      if (res == 'NONE') {
+        res = '未加入';
+      }
+      if (res.substr(0, 3) == 'OK:') {
+        done = function() {};
+        res = res.substr(3);
+      }
+      $('#enemyName').html(res);
+
+      done();
+    }.bind(this));
+  }
+
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 10000);
+      setTimeout(this.doExchange.bind(this), 1000);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     console.log('SEND', data);
@@ -522,7 +544,7 @@ class Canvas {
       }
 
       if (this.waiting) {
-        $('#statBar').html('等待对方走子');
+        $('#statBar').html('等待对方走子...');
       } else {
         $('#statBar').html('该你走子');
       }

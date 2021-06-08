@@ -9,13 +9,13 @@ if (roomId == uid) {
 
 } else {
     PreparedStatement stmt = conn.prepareStatement(
-    "update room set r_guest = ? where r_owner = ?"
+    "update room set r_guest = ? where r_owner = ? and isnull(r_guest)"
     );
     stmt.setInt(1, uid);
     stmt.setInt(2, roomId);
     stmt.executeUpdate();
     if (stmt.getUpdateCount() != 1) {
-        out.print("NOT_FOUND");
+        out.print("NOT_FOUND_OR_ALREADY_USED");
     } else {
         session.setAttribute("roomId", roomId);
         session.setAttribute("myColor", "");
