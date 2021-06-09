@@ -1,11 +1,12 @@
 
     table.imagetable {
         font-family: verdana,arial,sans-serif;
-        font-size:11px;
+        font-size:18px;
         color:#333333;
         border-width: 1px;
         border-color: #999999;
         border-collapse: collapse;
+        width: 100%;
     }
     table.imagetable th {
         background:#b5cfd2 url('cell-blue.jpg');

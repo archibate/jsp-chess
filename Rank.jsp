@@ -15,31 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="author" content="Codrops" />
 <link rel="shortcut icon" href="../favicon.ico"> 
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="table.css" />
 <script src="js/modernizr.custom.63321.js"></script>
-    <style type="text/css">
-    table.imagetable {
-        font-family: verdana,arial,sans-serif;
-        font-size:11px;
-        color:#333333;
-        border-width: 1px;
-        border-color: #999999;
-        border-collapse: collapse;
-    }
-    table.imagetable th {
-        background:#b5cfd2 url('cell-blue.jpg');
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #999999;
-    }
-    table.imagetable td {
-        background:#dcddc0 url('cell-grey.jpg');
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #999999;
-    }
-    </style>
 <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
 </head>
   <body>
@@ -47,9 +24,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <img src="BambooPlus.jpg" width="100%" height="100%"/>
     </div>
   <center>
-<form class="form-4">
+<form class="form-4" style="width: 500px">
   <tr>
-    <h1><td width="100%" colspan="2" align="center"><font color=white>用 户 积 分 排 行 榜</font></td></h1>
+    <h1><td width="100%" colspan="2" align="center"><font color=white style="font-size: 40px">用 户 积 分 排 行 榜</font></td></h1>
   </tr>
   <br/>
   <br/>

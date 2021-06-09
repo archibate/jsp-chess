@@ -16,7 +16,7 @@
      <img src="BambooPlus.jpg" width="100%" height="100%"/>
     </div>
   <center>
-<form class="form-4">
+<form class="form-4" style="width: 500px">
             </p>
                 <h1><font size="10px">用  户  首  页</font></a></h1>
             <p>
@@ -41,11 +41,20 @@ if (rs.next()) {
     int round = rs.getInt(3);
     %>
     <table class="imagetable">
-    <tr> <th>用户编号</th> <td><% out.print(uid); %></td> </tr>
-    <tr> <th>用户名</th> <td><% out.print(username); %></td> </tr>
-    <tr> <th>积分点数</th> <td><% out.print(point); %></td> </tr>
-    <tr> <th>总局数</th> <td><% out.print(round); %></td> </tr>
-    <tr> <th>胜率</th> <td><% out.print(point * 100 / Math.max(round, 1) + "%"); %></td> </tr>
+    <tr>
+    <th>用户编号</th>
+<th>用户名</th>
+<th>积分点数</th>
+<th>总局数</th>
+<th>胜率</th>
+    </tr>
+    <tr>
+    <td><% out.print(uid); %></td>
+    <td><% out.print(username); %></td>
+    <td><% out.print(point); %></td>
+    <td><% out.print(round); %></td>
+    <td><% out.print(point * 100 / Math.max(round, 1) + "%"); %></td>
+    </tr>
     </table>
     <%
 } else {
