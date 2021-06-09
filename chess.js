@@ -42,7 +42,7 @@ class Chess
     ctx.arc((this.X() + 0.5) * S, (this.Y() + 0.5) * S, S * 0.42, 0, Math.PI * 2);
     ctx.stroke();
     ctx.fillStyle = this.color;
-    ctx.font = (S * 0.75) + "px HuaWenLiShu";
+    ctx.font = (S * 0.75) + "px 华文隶书";
     ctx.fillText(this.name, (this.X() + 0.12) * S, (this.Y() + 0.73) * S);
   }
 
@@ -227,7 +227,7 @@ class Map
 
     if (this.player != null) {
       ctx.fillStyle = 'black';
-      ctx.font = (S * 0.75) + "px HuaWenLiShu";
+      ctx.font = (S * 0.75) + "px 华文隶书";
       if (this.player != 'red')
         ctx.setTransform(-1, 0, 0, -1, 9 * S, 10 * S);
       ctx.fillText('汉界', (5.5 + 0.12) * S, (5 - 0.5 + 0.73) * S);

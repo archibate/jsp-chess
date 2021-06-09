@@ -5,7 +5,7 @@ int uid = (int)session.getAttribute("uid");
 int roomId = Integer.parseInt(request.getParameter("roomId"));
 
 if (roomId == uid) {
-    out.print("CANNOT_JOIN_MYSELF");
+    out.print("不能加入自己创建的房间！");
 
 } else {
     PreparedStatement stmt = conn.prepareStatement(
@@ -15,7 +15,7 @@ if (roomId == uid) {
     stmt.setInt(2, roomId);
     stmt.executeUpdate();
     if (stmt.getUpdateCount() != 1) {
-        out.print("NOT_FOUND_OR_ALREADY_USED");
+        out.print("找不到房间或已经有人加入");
     } else {
         session.setAttribute("roomId", roomId);
         session.setAttribute("myColor", "");
