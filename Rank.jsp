@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
   <body>
     <div id="Layer" style="position:absolute; left:0px; top:0px; width:100%; height:100%">
-     <img src="BambooPlus.jpg" width="100%" height="100%"/>
+     <img src="MetalChess.jpg" width="100%" height="100%"/>
     </div>
   <center>
 <form class="form-4" style="width: 500px">
