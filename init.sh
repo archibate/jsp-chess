@@ -1,3 +1,2 @@
-set -e
-echo drop database letterdb | ./sql.sh
-./sql.sh < letter.sql
+echo drop database letterdb | ./sql.sh 2> /dev/null
+exec ./sql.sh < letter.sql

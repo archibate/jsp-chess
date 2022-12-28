@@ -592,6 +592,24 @@ class Canvas {
       this.invalidate();
     }
   }
+
+  onQuit() {
+    window.location.href = 'index.jsp';
+  }
+
+  onSave() {
+    var data = this.map.serialize();
+    console.log('SAVE', data);
+    $.post('saveRecord.jsp', {
+      data: data,
+    }, function(res) {
+        if (res == 'OK') {
+          alert('保存成功！稍后可在历史存档页面查看');
+        } else {
+          alert(res);
+        }
+    }.bind(this));
+  }
 }
 
 var canvas = new Canvas();
@@ -599,5 +617,11 @@ canvas.map = new Map();
 canvas.map.initialize();
 console.log('INIT', canvas.map.serialize());
 canvas.invalidate();
+
+$('#quitBtn').click(function () { canvas.onQuit(); });
+$('#saveBtn').click(function () { canvas.onSave(); });
+//$('#regretBtn').click(function () { canvas.onRegret(); });
+//$('#spareBtn').click(function () { canvas.onSpare(); });
+//$('#fleeBtn').click(function () { canvas.onFlee(); });
 
 });
