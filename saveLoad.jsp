@@ -24,15 +24,9 @@ stmt.executeUpdate();
 int roomId = uid;
 session.setAttribute("roomId", roomId);
 session.setAttribute("myColor", "");
+response.sendRedirect("chess.html");
 %>
-<html>
-<body>
-    <p>正在跳转到房间<% out.print(roomId); %>...</p>
-<script>
-window.location.href = 'chess.html';
-</script>
-</body>
-</html>
+<p>正在跳转到房间<% out.print(roomId); %>...</p>
 <% } else { %>
 <p>错误：存档不存在</p>
 <% } %>

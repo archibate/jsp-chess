@@ -67,10 +67,10 @@ if (rs.next()) {
             </p>
                 <h2><a href="register.html"><font size="6px">用 户 注 册</font></a></h2>
             <p>
-			<br/>
+			<!-- br/>
 			</p>
                 <h3><a href="login.html"><font size="6px">用 户 登 录</font></a></h3>
-            <p>
+            <p -->
 			<br/>
 			</p>
                 <h4><a href="SessionLogout.jsp"><font size="6px">退 出 登 录</font></a></h4>

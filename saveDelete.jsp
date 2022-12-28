@@ -10,12 +10,8 @@ int sno = Integer.parseInt(request.getParameter("sno"));
 String sql="delete from save where s_no="+sno+"";
 if (sts.executeUpdate(sql) == 1) {
 %>
-<body>
 <p>删除成功</p>
-<script>
-window.location.href = 'saveQuery.jsp';
-</script>
-</body>
+<% session.sendRedirect("saveQuery.jsp"); %>
 <% } else { %>
 <p>删除失败</p>
 <% } %>
