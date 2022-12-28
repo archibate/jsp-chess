@@ -21,6 +21,7 @@ create table room
     , r_ownerColor enum('red', 'black') not null default 'red'
     , r_color enum('red', 'black') not null default 'red'
     , r_state char(64) not null default '0010203040506070800312234363728309192939495969798906172646667786'
+    , r_steps int not null default 0
     , r_ctime datetime null default current_timestamp on update current_timestamp
     , primary key (r_owner)
     , foreign key (r_owner) references user(u_no)
@@ -35,6 +36,8 @@ create table save
     , s_ownerColor enum('red', 'black') not null
     , s_color enum('red', 'black') not null
     , s_state char(64) not null default '0010203040506070800312234363728309192939495969798906172646667786'
+    , s_steps int not null default 0
+    , s_title char(32) not null default 'Untitled'
     , s_ctime datetime null default current_timestamp
     , primary key (s_no)
 );
@@ -45,13 +48,13 @@ create table Administrator
     , primary key (name)
 );
 
-insert into user values (null, "刘孙伟", "M", "liu", null, 6, 8, current_timestamp);
-insert into user values (null, "朱丽娟", "F", "zhu", null, 0, 13, current_timestamp);
-insert into user values (null, "彭于斌", "F", "pen", null, 4, 10, current_timestamp);
-insert into user values (null, "尤阳宇", "M", "you", null, 1, 2, current_timestamp);
-insert into user values (null, "马克思", "M", "max", null, 0, 0, current_timestamp);
-insert into user values (null, "马舒婷", "F", "shu", null, 0, 1, current_timestamp);
-insert into user values (null, "马云", "M", "yun", null, 1, 8, current_timestamp);
+insert into user values (null, "刘孙伟", "M", "liu", 6, 8, current_timestamp);
+insert into user values (null, "朱丽娟", "F", "zhu", 0, 13, current_timestamp);
+insert into user values (null, "彭于斌", "F", "pen", 4, 10, current_timestamp);
+insert into user values (null, "尤阳宇", "M", "you", 1, 2, current_timestamp);
+insert into user values (null, "马克思", "M", "max", 0, 0, current_timestamp);
+insert into user values (null, "马舒婷", "F", "shu", 0, 1, current_timestamp);
+insert into user values (null, "马云", "M", "yun", 1, 8, current_timestamp);
 select * from user;
 
 insert into Administrator values ("彭于斌", "sir");

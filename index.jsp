@@ -68,11 +68,9 @@ if (rs.next()) {
                 <h2><a href="register.html"><font size="6px">用 户 注 册</font></a></h2>
             <p>
 			<br/>
-			<br/>
 			</p>
                 <h3><a href="login.html"><font size="6px">用 户 登 录</font></a></h3>
             <p>
-			<br/>
 			<br/>
 			</p>
                 <h4><a href="SessionLogout.jsp"><font size="6px">退 出 登 录</font></a></h4>
@@ -84,17 +82,19 @@ if (rs.next()) {
                 <h5><a href="joinRoom.html"><font size="6px">加 入 房 间</font></a></h5>
             <p>
 			<br/>
-			<br/>
 			</p>
                 <h5><a href="newRoom.html"><font size="6px">创 建 房 间</font></a></h5>
             <p>
-			<br/>
 			<br/>
 			</p>
                 <h5><a href="chess.html"><font size="6px">当 前 对 战</font></a></h5>
             <p>
 			<br/>
             <hr/>
+			<br/>
+			</p>
+                <h5><a href="saveQuery.jsp"><font size="6px">历 史 存 档</font></a></h5>
+            <p>
 			<br/>
 			</p>
                 <h5><a href="Rank.jsp"><font size="6px">积 分 榜</font></a></h5>
