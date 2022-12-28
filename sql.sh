@@ -1,1 +1,1 @@
-mysql -h127.0.0.1 -P3306 -uroot -pihatesql $1
+exec mysql -h127.0.0.1 -P3306 -uroot -pihatesql $1

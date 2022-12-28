@@ -1,1 +1,1 @@
-./sql.sh letterdb
+exec ./sql.sh letterdb
