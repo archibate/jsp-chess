@@ -8,7 +8,6 @@ create table user
     , u_name varchar(64) not null
     , u_sex enum('M', 'F') not null
     , u_passwd varchar(64) not null
-    , u_regdate char(10) default null
     , u_point int default 0
     , u_round int default 0
     , u_ctime datetime null default current_timestamp
@@ -46,13 +45,13 @@ create table Administrator
     , primary key (name)
 );
 
-insert into user values (null, "刘孙伟", "M", "liu", null, 6, 8, null);
-insert into user values (null, "朱丽娟", "F", "zhu", null, 0, 13, null);
-insert into user values (null, "彭于斌", "F", "pen", null, 4, 10, null);
-insert into user values (null, "尤阳宇", "M", "you", null, 1, 2, null);
-insert into user values (null, "马克思", "M", "max", null, 0, 0, null);
-insert into user values (null, "马舒婷", "F", "shu", null, 0, 1, null);
-insert into user values (null, "马云", "M", "yun", null, 1, 8, null);
+insert into user values (null, "刘孙伟", "M", "liu", null, 6, 8, current_timestamp);
+insert into user values (null, "朱丽娟", "F", "zhu", null, 0, 13, current_timestamp);
+insert into user values (null, "彭于斌", "F", "pen", null, 4, 10, current_timestamp);
+insert into user values (null, "尤阳宇", "M", "you", null, 1, 2, current_timestamp);
+insert into user values (null, "马克思", "M", "max", null, 0, 0, current_timestamp);
+insert into user values (null, "马舒婷", "F", "shu", null, 0, 1, current_timestamp);
+insert into user values (null, "马云", "M", "yun", null, 1, 8, current_timestamp);
 select * from user;
 
 insert into Administrator values ("彭于斌", "sir");

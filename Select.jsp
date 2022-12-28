@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <table class="imagetable"><tr><th>用户名</th><th>密码</th><th>性别</th><th>注册时间</th></tr>
    <% 
    while(rs.next())
-   out.print("<tr><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_passwd")+"</td><td>"+(rs.getString("u_sex").equals("M")?"男":"女")+"</td><td>"+rs.getString("u_regdate")+"</td></tr>");
+   out.print("<tr><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_passwd")+"</td><td>"+(rs.getString("u_sex").equals("M")?"男":"女")+"</td><td>"+rs.getString("u_ctime")+"</td></tr>");
    rs.close();
    %>
    </form>
