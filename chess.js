@@ -416,27 +416,26 @@ class ChessJiang extends Chess {
     points.push([-1, 0]);
     points.push([0, +1]);
     points.push([0, -1]);
+    for (var y = this.y + 1; y <= 9; y++) {
+      var c = this.map.at(this.x, y);
+      if (c != null) {
+        if (c instanceof ChessJiang)
+          points.push([0, y - this.y]);
+        break;
+      }
+    }
+    for (var y = this.y - 1; y >= 0; y--) {
+      var c = this.map.at(this.x, y);
+      if (c != null) {
+        if (c instanceof ChessJiang)
+          points.push([0, y - this.y]);
+        break;
+      }
+    }
     return points;
   }
   movePointFilter(px, py) {
-    for (var y = 0; y <= 9; y++) {
-      if (y == py) continue;
-      var c = this.map.at(px, y);
-      if (c != null) {
-        if (c instanceof ChessJiang)
-          return false;
-        else
-          break;
-      }
-    }
-    if (this.color == 'black') {
-      if (3 <= px && px <= 5 && 0 <= py && py <= 2)
-        return true;
-    } else {
-      if (3 <= px && px <= 5 && 7 <= py && py <= 9)
-        return true;
-    }
-    return false;
+    return 3 <= px && px <= 5 && ((0 <= py && py <= 2) || (7 <= py && py <= 9));
   }
 }
 

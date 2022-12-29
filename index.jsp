@@ -1,6 +1,6 @@
-<!DOCTYPE html>
 <%@ page language="java" import="java.util.*, java.sql.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="db.jsp"%>
+<!DOCTYPE html>
 <html>
 <head lang="zh-cn">
     <meta charset="UTF-8">
