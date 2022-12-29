@@ -32,9 +32,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <br/>
   <br/>
 <%@ include file="db.jsp"%><%//执行SQL语句
-  Statement sts=conn.createStatement();
-  String sql="select * from save order by s_ctime DESC";
-  ResultSet rs=sts.executeQuery(sql);
+  PreparedStatement stmt=conn.prepareStatement("select * from save where s_owner = ? order by s_ctime DESC");
+  int uid = (int)session.getAttribute("uid");
+  stmt.setInt(1, uid);
+  ResultSet rs=stmt.executeQuery();
   int i=1;%>
 <table class="imagetable"><tr><th>序号</th><th>保存时间</th><th>标题</th><th>我方颜色</th><th>已走步数</th><th>剩余棋子数</th><th>操作</th></tr>
 <%while(rs.next()){

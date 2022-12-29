@@ -492,6 +492,7 @@ class Canvas {
     this.canvas.onmousedown = this.onMouseDown.bind(this);
     this.moved = false;
     this.waiting = true;
+    this.recieved = false;
     this.oldData = null;
     $.post('myColor.jsp', {
     }, function(res) {
@@ -539,17 +540,22 @@ class Canvas {
       setTimeout(this.doExchange.bind(this), 1000);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
-    console.log('SEND', data);
+    if (data.length != 0) {
+      console.log('SEND', data);
+    }
     $.post('xchg.jsp', {
       data: data,
     }, function(res) {
       if (res.length != 0) {
-        this.waiting = res[0] == 'Y';
         var data = res.substr(1);
-        console.log('RECV', data, res[0]);
-        this.moved = false;
-        this.map.deserialize(data);
-        this.invalidate();
+        if (this.waiting || !this.recieved) {
+          this.recieved = true;
+          console.log('RECV', data, res[0]);
+          this.moved = false;
+          this.map.deserialize(data);
+          this.invalidate();
+        }
+        this.waiting = res[0] == 'Y';
       }
 
       if (this.waiting) {
@@ -621,7 +627,7 @@ class Canvas {
   }
 }
 
-var canvas = new Canvas();
+canvas = new Canvas();
 canvas.map = new Map();
 canvas.map.initialize();
 console.log('INIT', canvas.map.serialize());

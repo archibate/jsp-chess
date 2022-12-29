@@ -4,9 +4,10 @@
 int uid = (int)session.getAttribute("uid");
 int sno = Integer.parseInt(request.getParameter("sno"));
 PreparedStatement stmt = conn.prepareStatement(
-"select s_state, s_ownerColor, s_color from save where s_no = ?"
+"select s_state, s_ownerColor, s_color from save where s_no = ? and s_owner = ?"
 );
 stmt.setInt(1, sno);
+stmt.setInt(2, uid);
 ResultSet rs = stmt.executeQuery();
 if (rs.next()) {
 String state = rs.getString(1);
