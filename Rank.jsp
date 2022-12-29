@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         out.print("<tr><td>"+i+"</td><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_point")+"</td><td>"+rs.getString("u_round")+"</td><td>"+rate+"%</td></tr>");
         i++;}
   rs.close();%>
-</form>
+</table>
+<br/><h6><a href="index.jsp"><font size="3px" color=white>返 回 主 页</font></a></h6>
   </body>
 </html>

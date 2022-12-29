@@ -47,6 +47,7 @@ int sno = rs.getInt("s_no");
 out.print("<tr><td>"+i+"</td><td>"+rs.getString("s_ctime")+"</td><td>"+rs.getString("s_title")+"</td><td>"+(rs.getString("s_ownerColor").equals("red")?"红":"黑")+"</td><td>"+rs.getString("s_steps")+"</td><td>"+Integer.toString(leftchesses)+"</td><td><a href=\"saveLoad.jsp?sno="+Integer.toString(sno)+"\">加载</a> | <a href=\"saveDelete.jsp?sno="+Integer.toString(sno)+"\">删除</a></td></tr>");
         i++;}
   rs.close();%>
-</form>
+</table>
+<br/><h6><a href="index.jsp"><font size="3px" color=white>返 回 主 页</font></a></h6>
   </body>
 </html>
