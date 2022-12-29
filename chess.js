@@ -548,14 +548,15 @@ class Canvas {
     }, function(res) {
       if (res.length != 0) {
         var data = res.substr(1);
-        if (this.waiting || !this.recieved) {
+        var wasWaiting = this.waiting;
+        this.waiting = res[0] == 'Y';
+        if (!this.recieved || (wasWaiting && !this.waiting)) {
           this.recieved = true;
-          console.log('RECV', data, res[0]);
-          this.moved = false;
+          console.log('RECV', data);
           this.map.deserialize(data);
           this.invalidate();
         }
-        this.waiting = res[0] == 'Y';
+        this.moved = false;
       }
 
       if (this.waiting) {
