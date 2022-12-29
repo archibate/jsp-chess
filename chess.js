@@ -419,6 +419,16 @@ class ChessJiang extends Chess {
     return points;
   }
   movePointFilter(px, py) {
+    for (var y = 0; y <= 9; y++) {
+      if (y == py) continue;
+      var c = this.map.at(px, y);
+      if (c != null) {
+        if (c instanceof ChessJiang)
+          return false;
+        else
+          break;
+      }
+    }
     if (this.color == 'black') {
       if (3 <= px && px <= 5 && 0 <= py && py <= 2)
         return true;
