@@ -97,17 +97,19 @@ class Chess
     return points;
   }
 
-  tryMoveTo(mx, my) {
+  canMoveTo(mx, my) {
     var points = this.getMovePoints();
     for (var i in points) {
       var [px, py] = points[i];
-      if (px == mx && py == my) {
-        this.map.eatChessAt(mx, my);
-        [this.x, this.y] = [mx, my];
+      if (px == mx && py == my)
         return true;
-      }
     }
     return false;
+  }
+
+  doMoveTo(mx, my) {
+    this.map.eatChessAt(mx, my);
+    [this.x, this.y] = [mx, my];
   }
 }
 
@@ -596,7 +598,9 @@ class Canvas {
 
     if (this.map.selection) {
       var [px, py] = [this.map.selection.x, this.map.selection.y];
-      if (this.map.selection.tryMoveTo(mx, my)) {
+      if (this.map.selection.canMoveTo(mx, my)) {
+        //this.oldData = this.map.serialize();
+        this.map.selection.doMoveTo(mx, my);
         this.moved = true;
         $('#statBar').html('正在提交数据...');
         this.map.selection = null;
@@ -628,6 +632,23 @@ class Canvas {
         }
     }.bind(this));
   }
+
+  onRegret() {
+    if (this.waiting || this.moved) {
+      alert('请先等对方走完后，再选择悔棋');
+      return;
+    }
+    if (this.oldData == null) {
+      alert('没有上一步了，无法悔棋');
+      return;
+    }
+    $('#statBar').html('正在悔棋...');
+    this.map.deserialize(this.oldData);
+    this.oldData = null;
+    this.moved = true;
+    this.map.selection = null;
+    this.invalidate();
+  }
 }
 
 canvas = new Canvas();
@@ -638,7 +659,7 @@ canvas.invalidate();
 
 $('#quitBtn').click(function () { canvas.onQuit(); });
 $('#saveBtn').click(function () { canvas.onSave(); });
-//$('#regretBtn').click(function () { canvas.onRegret(); });
+$('#regretBtn').click(function () { canvas.onRegret(); });
 //$('#spareBtn').click(function () { canvas.onSpare(); });
 //$('#fleeBtn').click(function () { canvas.onFlee(); });
 

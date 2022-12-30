@@ -9,7 +9,7 @@ PreparedStatement stmt;
 
 if (data.length() != 0) {
     stmt = conn.prepareStatement(
-    "update room set r_color = ?, r_state = ? where r_owner = ? and r_color = ?"
+    "update room set r_color = ?, r_state = ?, r_steps = r_steps + 1 where r_owner = ? and r_color = ?"
     );
     stmt.setString(1, myColor.equals("red") ? "black" : "red");
     stmt.setString(2, data);
