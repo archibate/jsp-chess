@@ -537,12 +537,13 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 1000);
+      setTimeout(this.doExchange.bind(this), 100);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     if (data.length != 0) {
       console.log('SEND', data);
     }
+    var wasMoved = this.moved;
     $.post('xchg.jsp', {
       data: data,
     }, function(res) {
@@ -556,10 +557,11 @@ class Canvas {
           this.map.deserialize(data);
           this.invalidate();
         }
-        this.moved = false;
+        if (wasMoved)
+          this.moved = false;
       }
 
-      if (this.waiting) {
+      if (this.waiting || this.moved) {
         $('#statBar').html('等待对方走子...');
       } else {
         $('#statBar').html('该你走子');
@@ -577,7 +579,7 @@ class Canvas {
         });
       } else if (this.map.isWin()) {
         $('#statBar').html('恭喜，你赢了！');
-        done = function() {};
+        //done = function() {};
       }
 
       done();
