@@ -79,18 +79,26 @@ void Ask(const char *data, char *rep) {
     }
 }
 
-int main() {
+void Proc(std::string const &in) {
+    if (in.size() < 65) {
+        std::cout << "ERRORINPUT";
+    } else {
+        char rep[66];
+        Ask(in.data(), rep);
+        rep[65] = 0;
+        std::cout << rep;
+    }
+    std::cout << std::endl;
+}
+
+int main(int argc, char *argv[]) {
     std::string in;
-    while (std::cin >> in) {
-        if (in.size() < 65) {
-            std::cout << "ERRORINPUT";
-        } else {
-            char rep[66];
-            Ask(in.data(), rep);
-            rep[65] = 0;
-            std::cout << rep;
+    if (argc > 1 && argv[1]) {
+        Proc(in);
+    } else {
+        while (std::cin >> in) {
+            Proc(in);
         }
-        std::cout << std::endl;
     }
     return 0;
 }

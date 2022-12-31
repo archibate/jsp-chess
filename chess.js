@@ -518,7 +518,7 @@ class Canvas {
 
   doGetEnemyInfo() {
     var done = function() {
-      setTimeout(this.doGetEnemyInfo.bind(this), 4000);
+      setTimeout(this.doGetEnemyInfo.bind(this), 300);
     }.bind(this);
 
     $.post('enemyInfo.jsp', {
@@ -526,6 +526,8 @@ class Canvas {
       console.log('ENEMY', res);
       if (res == 'NONE') {
         res = '未加入';
+      } else {
+        $('#inviteBtn').hide();
       }
       if (res.substr(0, 3) == 'OK:') {
         done = function() {};
@@ -539,7 +541,7 @@ class Canvas {
 
   doExchange() {
     var done = function() {
-      setTimeout(this.doExchange.bind(this), 100);
+      setTimeout(this.doExchange.bind(this), 500);
     }.bind(this);
     var data = this.moved ? this.map.serialize() : '';
     if (data.length != 0) {
@@ -550,6 +552,9 @@ class Canvas {
       data: data,
     }, function(res) {
       if (res.length != 0) {
+        if (res[0] != 'Y' && res[0] != 'N') {
+          alert(res);
+        }
         var data = res.substr(1);
         var wasWaiting = this.waiting;
         this.waiting = res[0] == 'Y';
@@ -572,7 +577,6 @@ class Canvas {
       if (this.map.isLose()) {
         $('#statBar').html('很遗憾，你输了！');
         done = function() {};
-
         $.post('youLose.jsp', {
         }, function(res) {
           if (res != 'OK') {
@@ -599,7 +603,7 @@ class Canvas {
     if (this.map.selection) {
       var [px, py] = [this.map.selection.x, this.map.selection.y];
       if (this.map.selection.canMoveTo(mx, my)) {
-        //this.oldData = this.map.serialize();
+        this.oldData = this.map.serialize();
         this.map.selection.doMoveTo(mx, my);
         this.moved = true;
         $('#statBar').html('正在提交数据...');
@@ -645,9 +649,26 @@ class Canvas {
     $('#statBar').html('正在悔棋...');
     this.map.deserialize(this.oldData);
     this.oldData = null;
-    this.moved = true;
+    //this.moved = true;
+    this.regreting = true;
     this.map.selection = null;
     this.invalidate();
+  }
+
+  onLose() {
+    this.map.isLose = function () { return true; };
+    this.map.deserialize = function (data) {};
+  }
+
+  onInvite() {
+    $('#statBar').html('正在邀请AI...');
+    console.log('INVITE AI');
+    $.post('inviteAI.jsp', {
+    }, function(res) {
+      if (res != 'OK') {
+        alert(res);
+      }
+    }.bind(this));
   }
 }
 
@@ -660,7 +681,7 @@ canvas.invalidate();
 $('#quitBtn').click(function () { canvas.onQuit(); });
 $('#saveBtn').click(function () { canvas.onSave(); });
 $('#regretBtn').click(function () { canvas.onRegret(); });
-//$('#spareBtn').click(function () { canvas.onSpare(); });
-//$('#fleeBtn').click(function () { canvas.onFlee(); });
+$('#loseBtn').click(function () { if (!this.hadOnce) alert('再次点击确认'); else canvas.onLose(); this.hadOnce = true; }.bind({}));
+$('#inviteBtn').click(function () { canvas.onInvite(); });
 
 });

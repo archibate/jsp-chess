@@ -5,7 +5,7 @@ String username = request.getParameter("username");
 String password = request.getParameter("password");
 
 PreparedStatement stmt = conn.prepareStatement(
-"select u_no from user where u_name = ? and u_passwd = ?"
+"select u_no from user where u_name = ? and u_passwd = md5(?)"
 );
 stmt.setString(1, username);
 stmt.setString(2, password);

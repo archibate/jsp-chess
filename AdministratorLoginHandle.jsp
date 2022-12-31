@@ -6,7 +6,7 @@ String name=request.getParameter("AdministratorName");
 String password=request.getParameter("AdministratorPassword");
 
 int count=0;
-String s="select * from Administrator where name='"+name+"' and password='"+password+"'";
+String s="select * from Administrator where name='"+name+"' and password=md5('"+password+"')";
 
 %><%@ include file="db.jsp"%><%
 
