@@ -61,7 +61,10 @@ void Ask(const char *data, char *rep) {
     POINT resultPoint = {0, 0};
 	BOOL flag = Think(map, piecesCoordinate, side, resultPiece, resultPoint);
     if (flag) {
-        newPie[lut[resultPiece]] = resultPoint;
+        if (map[resultPoint.x][resultPoint.y] != 32) {
+            newPie[map[resultPoint.x][resultPoint.y]] = {0, 0};
+        }
+        newPie[resultPiece] = resultPoint;
         rep[0] = 'M';
     } else {
         rep[0] = 'E';
@@ -94,6 +97,7 @@ void Proc(std::string const &in) {
 int main(int argc, char *argv[]) {
     std::string in;
     if (argc > 1 && argv[1]) {
+        in = argv[1];
         Proc(in);
     } else {
         while (std::cin >> in) {

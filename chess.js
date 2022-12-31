@@ -494,6 +494,7 @@ class Canvas {
     this.canvas.onmousedown = this.onMouseDown.bind(this);
     this.moved = false;
     this.waiting = true;
+    this.enemized = false;
     this.recieved = false;
     this.oldData = null;
     $.post('myColor.jsp', {
@@ -531,6 +532,7 @@ class Canvas {
       }
       if (res.substr(0, 3) == 'OK:') {
         done = function() {};
+        this.enemized = true;
         res = res.substr(3);
       }
       $('#enemyName').html(res);
@@ -568,7 +570,9 @@ class Canvas {
           this.moved = false;
       }
 
-      if (this.waiting || this.moved) {
+      if (!this.enemized) {
+        $('#statBar').html('等待对方加入...');
+      } else if (this.waiting || this.moved) {
         $('#statBar').html('等待对方走子...');
       } else {
         $('#statBar').html('该你走子');
@@ -593,7 +597,7 @@ class Canvas {
   }
 
   onMouseDown(e) {
-    if (this.waiting || this.moved)
+    if (!this.enemized || this.waiting || this.moved)
       return;
 
     var [mx, my] = [e.offsetX, e.offsetY];

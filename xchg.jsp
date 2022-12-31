@@ -16,31 +16,39 @@ ResultSet rs = stmt.executeQuery();
 if (rs.next()) {
     int guestId = rs.getInt(1);
     String oldData = rs.getString(2);
+    String nextColor = myColor;
 
     if (data.length() != 0) {
         if (guestId <= -1) {
+            String aiRep;
             String aiAsk = (myColor.equals("red") ? "B" : "R") + data;
-            Process proc = Runtime.getRuntime().exec("AI/build/ChessAI");
-            java.io.BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream()));
+
+            String[] cmdArr = {application.getRealPath("/") + "ChessAI", aiAsk};
+            Process proc = Runtime.getRuntime().exec(cmdArr);
             java.io.BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            writer.write(aiAsk);
-            writer.close();
-            char[] buf = new char[65];
-            reader.read(buf);
-            String aiRep = new String(buf);
+            char[] readBuf = new char[65];
+            int readLen = reader.read(readBuf);
+            if (readLen == -1) {
+                aiRep = "ERRORPIPE";
+            } else {
+                aiRep = new String(readBuf);
+                aiRep = aiRep.substring(0, readLen);
+            }
             reader.close();
 
             if (!(aiRep.length() != 0 && aiRep.charAt(0) == 'M' && aiRep.length() >= 65)) {
-                out.print("ERROR: AI 大脑未响应");
+                out.print("ERROR: AI 大脑未响应 (" + aiRep + ")");
                 return;
             }
             data = aiRep.substring(1);
+        } else {
+            nextColor = myColor.equals("red") ? "black" : "red";
         }
 
         stmt = conn.prepareStatement(
         "update room set r_color = ?, r_state = ?, r_steps = r_steps + 1 where r_owner = ? and r_color = ?"
         );
-        stmt.setString(1, myColor.equals("red") ? "black" : "red");
+        stmt.setString(1, nextColor);
         stmt.setString(2, data);
         stmt.setInt(3, roomId);
         stmt.setString(4, myColor);

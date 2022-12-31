@@ -160,7 +160,7 @@ int Value(int map[11][12], POINT pieceCoordinate[32], int &side)
 	memset(PieceBaseValue, 0, sizeof(int) << 5);
 	memset(PieceExtValue, 0, sizeof(int) << 5);
 	memset(BeAteCount, 0, sizeof(int) << 5);
-	memset(OwnSee, 0, sizeof(int) << 5);
+	memset(OwnSee, 0, sizeof(BOOL) << 5);
 
 	int maxvalue = 0;
 	int i, j;
