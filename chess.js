@@ -574,6 +574,10 @@ class Canvas {
         $('#statBar').html('等待对方加入...');
       } else if (this.waiting || this.moved) {
         $('#statBar').html('等待对方走子...');
+        if (!this.recieved && this.map.isLose()) {
+          this.map.deserialize('0010203040506070800312234363728309192939495969798906172646667786');
+          this.invalidate();
+        }
       } else {
         $('#statBar').html('该你走子');
       }
