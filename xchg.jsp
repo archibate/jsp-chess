@@ -6,13 +6,26 @@ int roomId = (int)session.getAttribute("roomId");
 String myColor = (String)session.getAttribute("myColor");
 String data = request.getParameter("data");
 PreparedStatement stmt;
+ResultSet rs;
+
+if (myColor.length() == 0) {
+    stmt = conn.prepareStatement(
+    "select r_color from room where r_owner = ?"
+    );
+    stmt.setInt(1, roomId);
+    rs = stmt.executeQuery();
+    String currentColor = rs.getString(1);
+    if (rs.next()) {
+        myColor = currentColor.equals("red") ? "black" : "red";
+    }
+}
 
 stmt = conn.prepareStatement(
 "select r_guest, r_state from room where r_owner = ? and r_color = ?"
 );
 stmt.setInt(1, roomId);
 stmt.setString(2, myColor);
-ResultSet rs = stmt.executeQuery();
+rs = stmt.executeQuery();
 if (rs.next()) {
     int guestId = rs.getInt(1);
     String oldData = rs.getString(2);
@@ -58,6 +71,17 @@ if (rs.next()) {
 
     out.print(data.length() != 0 ? "Y" : "N");
     out.print(data.length() != 0 ? data : oldData);
+} else {
+    stmt = conn.prepareStatement(
+    "select r_state from room where r_owner = ?"
+    );
+    stmt.setInt(1, roomId);
+    rs = stmt.executeQuery();
+    out.print(myColor.equals("red") ? "N" : "Y");
+    if (rs.next()) {
+        String currentState = rs.getString(1);
+        out.print(currentState);
+    }
 }
 
 %>

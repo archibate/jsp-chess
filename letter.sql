@@ -37,7 +37,7 @@ create table save
     , s_color enum('red', 'black') not null
     , s_state char(64) not null default '0010203040506070800312234363728309192939495969798906172646667786'
     , s_steps int not null default 0
-    , s_title char(32) not null default 'Untitled'
+    , s_title varchar(32) not null default 'Untitled'
     , s_ctime datetime null default current_timestamp
     , primary key (s_no)
 );

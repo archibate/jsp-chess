@@ -578,18 +578,20 @@ class Canvas {
         $('#statBar').html('该你走子');
       }
 
-      if (this.map.isLose()) {
-        $('#statBar').html('很遗憾，你输了！');
-        done = function() {};
-        $.post('youLose.jsp', {
-        }, function(res) {
-          if (res != 'OK') {
-            alert(res);
-          }
-        });
-      } else if (this.map.isWin()) {
-        $('#statBar').html('恭喜，你赢了！');
-        //done = function() {};
+      if (this.recieved) {
+        if (this.map.isLose()) {
+          $('#statBar').html('很遗憾，你输了！');
+          done = function() {};
+          $.post('youLose.jsp', {
+          }, function(res) {
+            if (res != 'OK') {
+              alert(res);
+            }
+          });
+        } else if (this.map.isWin()) {
+          $('#statBar').html('恭喜，你赢了！');
+          //done = function() {};
+        }
       }
 
       done();

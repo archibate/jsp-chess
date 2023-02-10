@@ -6,7 +6,7 @@ String password = request.getParameter("password");
 String sex = request.getParameter("sex");
 
 PreparedStatement stmt = conn.prepareStatement(
-"insert into user (u_name, u_passwd, u_sex) values (?, ?, ?)"
+"insert into user (u_name, u_passwd, u_sex) values (?, ?, md5(?))"
 );
 stmt.setString(1, username);
 stmt.setString(2, password);
