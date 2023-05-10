@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <img src="BambooPlus.jpg" width="100%" height="100%"/>
     </div>
   <center>
-<form class="form-4">
+<form class="form-4" style="width: 500px">
   <tr>
     <h1><td width="100%" colspan="2" align="center"><font color=white>象棋用户信息删除平台</font></td></h1>
   </tr>
@@ -37,11 +37,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    Statement sts=conn.createStatement();
    String sql="select * from user";
    ResultSet rs=sts.executeQuery(sql);%>
-   <table class="imagetable"><tr><th>用户名</th><th>密码</th><th>是否删除</th></tr>
+   <center><table class="imagetable"><tr><th>用户名</th><th>密码MD5值</th><th>是否删除</th></tr>
          <% 
    while(rs.next())
    out.print("<tr><td>"+rs.getString("u_name")+"</td><td>"+rs.getString("u_passwd")+"</td><td><a href=DeleteHandle.jsp?username="+rs.getString("u_name")+">是</a></td><tr>");
    rs.close();
    %>
+   </table></center>
   </body>
 </html>

@@ -44,7 +44,7 @@ void Ask(const char *data, char *rep) {
 	int side = data[0] == 'R' ? RED : BLACK;
     POINT piecesCoordinate[32], newPie[32];
 	int map[11][12];
-    const int lut[32] = { // ta to me+1
+    const int lut[32] = { // th to me+1
         21,20,22,19,23,18,24,17,25,27,31,26,28,29,30,32,
         5,4,6,3,7,2,8,1,9,11,15,10,12,13,14,16,
     };

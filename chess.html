@@ -21,6 +21,14 @@
             color: brown;
             background-color: darkgrey;
         }
+        center.roomInfo input {
+            font-family: verdana,arial,sans-serif;
+            text-shadow: 2px 2px grey;
+            font-size: 20px;
+            width: 140px;
+            color: white;
+            background-color: darkgrey;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="css/huawenlishu.css" />
 </head>
@@ -44,9 +52,14 @@
     <button id="loseBtn"><font size="4px">认输</font></button>
     <button id="saveBtn"><font size="4px">存盘</font></button>
     <button id="quitBtn"><font size="4px">离开</font></button>
+    <div hidden id="saveOkDlg">
+        <br/>
+        <input type="text" id="saveName" value="未命名"/>
+        <button id="saveOkBtn"><font size="4px">确定</font></button>
+    </div>
 </center>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <!--<script src="chess.js"></script>-->
 <script type="text/javascript">document.write('<script src="chess.js?'+Math.random()+'"><'+'/script>');</script>
 

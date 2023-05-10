@@ -524,10 +524,10 @@ class Canvas {
 
     $.post('enemyInfo.jsp', {
     }, function(res) {
-      console.log('ENEMY', res);
       if (res == 'NONE') {
         res = '未加入';
       } else {
+        console.log('ENEMY', res);
         $('#inviteBtn').hide();
       }
       if (res.substr(0, 3) == 'OK:') {
@@ -634,10 +634,18 @@ class Canvas {
   }
 
   onSave() {
+    var ishidden = $('#saveOkDlg').prop('hidden');
+    $('#saveOkDlg').prop('hidden', !ishidden);
+  }
+
+  onSaveOk() {
     var data = this.map.serialize();
+    var title = $('#saveName').val();
     console.log('SAVE', data);
+    $('#saveOkDlg').prop('hidden', true);
     $.post('saveRecord.jsp', {
       data: data,
+      title: title,
     }, function(res) {
         if (res == 'OK') {
           alert('保存成功！稍后可在历史存档页面查看');
@@ -660,7 +668,7 @@ class Canvas {
     this.map.deserialize(this.oldData);
     this.oldData = null;
     //this.moved = true;
-    this.regreting = true;
+    //this.regreting = true;
     this.map.selection = null;
     this.invalidate();
   }
@@ -690,6 +698,7 @@ canvas.invalidate();
 
 $('#quitBtn').click(function () { canvas.onQuit(); });
 $('#saveBtn').click(function () { canvas.onSave(); });
+$('#saveOkBtn').click(function () { canvas.onSaveOk(); });
 $('#regretBtn').click(function () { canvas.onRegret(); });
 $('#loseBtn').click(function () { if (!this.hadOnce) alert('再次点击确认'); else canvas.onLose(); this.hadOnce = true; }.bind({}));
 $('#inviteBtn').click(function () { canvas.onInvite(); });

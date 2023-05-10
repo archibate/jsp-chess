@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  java.util.Date date=new java.util.Date();
  SimpleDateFormat ft=new SimpleDateFormat("yyyy-MM-dd");
  String registertime=ft.format(date);
- sqlString="insert into user (u_name, u_passwd, u_sex, u_regdate, u_point, u_round)values('"+username+"','"+password+"','"+sex+"','"+registertime+"',0,0)";
+ sqlString="insert into user (u_name, u_passwd, u_sex, u_regdate, u_point, u_round)values('"+username+"',md5('"+password+"'),'"+sex+"','"+registertime+"',0,0)";
 %>
 <%@ include file="db.jsp"%><%//执行SQL语句
     Statement sts=conn.createStatement();
